@@ -74,13 +74,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="Player.cs" />
-=======
     <Compile Include="ModeSelction.xaml.cs">
       <DependentUpon>ModeSelction.xaml</DependentUpon>
     </Compile>
->>>>>>> fcecde280efaa9dde7de25eded538170ed84635e
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
