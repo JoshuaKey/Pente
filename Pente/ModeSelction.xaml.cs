@@ -10,15 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Pente {
+namespace Pente
+{
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ModeSelction.xaml
     /// </summary>
-    public partial class MenuController : Window {
-        public MenuController() {
+    public partial class ModeSelction : Window
+    {
+        public ModeSelction()
+        {
             InitializeComponent();
         }
 
@@ -27,12 +29,12 @@ namespace Pente {
 
         }
 
-        private void Rules_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void Quit_Click(object sender, RoutedEventArgs e)
+        private void Computer_Checked(object sender, RoutedEventArgs e)
         {
 
         }
