@@ -8,9 +8,16 @@ namespace Pente
 {
     public class Board
     {
+        public TileState[,] tiles;
+
+        public Board(int columns, int rows)
+        {
+            tiles = new TileState[columns, rows];
+        }
+
         public void Place(TileState type, int x, int y)
         {
-
+            tiles[x, y] = type;
         }
 
         public bool Check(int x, int y)

@@ -19,9 +19,56 @@ namespace Pente
     /// </summary>
     public partial class GameWindow : Window
     {
-        public GameWindow()
+        public GameWindow(int width, int height)
         {
             InitializeComponent();
+            AddColumns(width);
+            AddRows(height);
+            AddButtons(width, height);
+        }
+
+        private void AddColumns(int columns)
+        {
+            for (int i = 0; i < columns; ++i)
+            {
+                ColumnDefinition cd = new ColumnDefinition();
+                cd.Width = new GridLength(1, GridUnitType.Star);
+                grd_tiles.ColumnDefinitions.Add(cd);
+            }
+        }
+
+        private void AddRows(int rows)
+        {
+            for (int i = 0; i < rows; ++i)
+            {
+                RowDefinition rd = new RowDefinition();
+                rd.Height = new GridLength(1, GridUnitType.Star);
+                grd_tiles.RowDefinitions.Add(rd);
+            }
+        }
+
+        private void AddButtons(int columns, int rows)
+        {
+            for (int i = 0; i < columns; ++i)
+            {
+                for (int j = 0; j < rows; ++j)
+                {
+                    Button b = new Button();
+                    b.Width = double.NaN;
+                    b.Height = double.NaN;
+                    b.Click += Button_Click;
+                    Grid.SetColumn(b, i);
+                    Grid.SetRow(b, j);
+                    grd_tiles.Children.Add(b);
+                }
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            int column = Grid.GetColumn(sender as Button);
+            int row = Grid.GetRow(sender as Button);
+            GameManager.PlacePiece(column, row);
         }
     }
 }

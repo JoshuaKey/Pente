@@ -30,7 +30,9 @@ namespace Pente
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-
+            GameWindow gw = new GameWindow(19, 19);
+            gw.Show();
+            Close();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
