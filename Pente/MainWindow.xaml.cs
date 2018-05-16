@@ -26,6 +26,7 @@ namespace Pente {
         {
             ModeSelction ms = new ModeSelction();
             ms.Show();
+            Close();
         }
 
         private void Rules_Click(object sender, RoutedEventArgs e)

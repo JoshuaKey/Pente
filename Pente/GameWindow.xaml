@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Pente"
         mc:Ignorable="d"
         Title="GameWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid x:Name="grd_tiles">
+        <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Click="Button_Click" Height="50"/>
+
     </Grid>
 </Window>
