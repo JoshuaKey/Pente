@@ -19,10 +19,13 @@ namespace Pente
     /// </summary>
     public partial class ModeSelction : Window
     {
+        private string p2Name;
+
         public ModeSelction()
         {
             InitializeComponent();
             GameManager.Initialize();
+            p2Name = "";
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)
@@ -35,23 +38,24 @@ namespace Pente
 
         }
 
-        private void Computer_Checked(object sender, RoutedEventArgs e)
+        private void Computer_Clicked(object sender, RoutedEventArgs e)
         {
             if (cbx_computer.IsChecked == true)
             {
                 tbx_p2Name.IsEnabled = false;
+                p2Name = tbx_p2Name.Text;
                 tbx_p2Name.Text = "Computer";
             }
             else
             {
                 tbx_p2Name.IsEnabled = true;
+                tbx_p2Name.Text = p2Name;
             }
         }
 
         private void SetPlayerNames()
         {
-            GameManager.player1.name = tbx_p1Name.Text;
-            GameManager.player2.name = tbx_p2Name.Text;
+            GameManager.SetPlayerNames(tbx_p1Name.Text, tbx_p2Name.Text);
         }
     }
 }
