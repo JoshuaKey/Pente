@@ -10,5 +10,7 @@ namespace Pente
     {
         public string name;
         public TileState color;
+        public bool isComputer;
+        public int captures;
     }
 }

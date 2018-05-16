@@ -27,12 +27,13 @@ namespace Pente
             player2.name = p2Name;
         }
 
-        public static void PlacePiece(int x, int y)
+        public static void PlacePiece(int x, int y, out string announcement)
         {
             if (board.GetState(x, y) == TileState.EMPTY)
             {
                 TileState state = player1Turn ? player1.color : player2.color;
                 board.Place(state, x, y);
+                player1Turn = !player1Turn;
             }
         }
     }
