@@ -10,7 +10,7 @@ namespace Pente
     {
         public TileState[,] tiles;
         public int Width { get { return tiles.GetLength(0); } }
-        public int Height { get { return tiles.GetLength(0); } }
+        public int Height { get { return tiles.GetLength(1); } }
 
         public Board(int columns, int rows)
         {
@@ -18,9 +18,10 @@ namespace Pente
 
         }
 
-        public void Place(TileState type, int x, int y, out string announcement)
+        public string Place(TileState type, int x, int y)
         {
             tiles[x, y] = type;
+            return GetAnnouncement();
         }
 
         public bool Check(int x, int y)
