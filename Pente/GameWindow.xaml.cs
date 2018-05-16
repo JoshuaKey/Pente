@@ -68,7 +68,8 @@ namespace Pente
         {
             int column = Grid.GetColumn(sender as Button);
             int row = Grid.GetRow(sender as Button);
-            GameManager.PlacePiece(column, row);
+            string announcement;
+            GameManager.PlacePiece(column, row, out announcement);
         }
     }
 }

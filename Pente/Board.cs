@@ -18,10 +18,9 @@ namespace Pente
 
         }
 
-        public string Place(TileState type, int x, int y)
+        public void Place(TileState type, int x, int y)
         {
             tiles[x, y] = type;
-            return GetAnnouncement();
         }
 
         public bool Check(int x, int y)
@@ -37,32 +36,6 @@ namespace Pente
         public TileState GetState(int x, int y)
         {
             return TileState.EMPTY;
-        }
-
-        private string GetAnnouncement()
-        {
-            string announcement = "";
-
-            if (HasTria())
-            {
-                announcement = "Tria";
-            }
-            else if (HasTessera())
-            {
-                announcement = "Tessera";
-            }
-
-            return announcement;
-        }
-
-        private bool HasTria()
-        {
-            return false;
-        }
-
-        private bool HasTessera()
-        {
-            return false;
         }
     }
 }
