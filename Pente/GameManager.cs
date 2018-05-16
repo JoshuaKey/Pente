@@ -32,8 +32,12 @@ namespace Pente
             if (board.GetState(x, y) == TileState.EMPTY)
             {
                 TileState state = player1Turn ? player1.color : player2.color;
-                board.Place(state, x, y);
+                announcement = board.Place(state, x, y);
                 player1Turn = !player1Turn;
+            }
+            else
+            {
+                announcement = "";
             }
         }
     }
