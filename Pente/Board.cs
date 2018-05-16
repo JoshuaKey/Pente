@@ -18,10 +18,9 @@ namespace Pente
 
         }
 
-        public string Place(TileState type, int x, int y)
+        public void Place(TileState type, int x, int y)
         {
             tiles[x, y] = type;
-            return GetAnnouncement();
         }
 
         public bool Check(int x, int y)
