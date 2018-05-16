@@ -9,13 +9,16 @@ namespace Pente
     public class Board
     {
         public TileState[,] tiles;
+        public int Width { get { return tiles.GetLength(0); } }
+        public int Height { get { return tiles.GetLength(0); } }
 
         public Board(int columns, int rows)
         {
             tiles = new TileState[columns, rows];
+
         }
 
-        public void Place(TileState type, int x, int y)
+        public void Place(TileState type, int x, int y, out string announcement)
         {
             tiles[x, y] = type;
         }
@@ -33,6 +36,32 @@ namespace Pente
         public TileState GetState(int x, int y)
         {
             return TileState.EMPTY;
+        }
+
+        private string GetAnnouncement()
+        {
+            string announcement = "";
+
+            if (HasTria())
+            {
+                announcement = "Tria";
+            }
+            else if (HasTessera())
+            {
+                announcement = "Tessera";
+            }
+
+            return announcement;
+        }
+
+        private bool HasTria()
+        {
+            return false;
+        }
+
+        private bool HasTessera()
+        {
+            return false;
         }
     }
 }
