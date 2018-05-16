@@ -16,5 +16,11 @@ namespace Pente
             player1 = new Player();
             player2 = new Player();
         }
+
+        public static void SetPlayerNames(string p1Name, string p2Name)
+        {
+            player1.name = p1Name;
+            player2.name = p2Name;
+        }
     }
 }

@@ -24,7 +24,8 @@ namespace Pente {
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-
+            ModeSelction ms = new ModeSelction();
+            ms.Show();
         }
 
         private void Rules_Click(object sender, RoutedEventArgs e)
