@@ -37,7 +37,15 @@ namespace Pente
 
         private void Computer_Checked(object sender, RoutedEventArgs e)
         {
-
+            if (cbx_computer.IsChecked == true)
+            {
+                tbx_p2Name.IsEnabled = false;
+                tbx_p2Name.Text = "Computer";
+            }
+            else
+            {
+                tbx_p2Name.IsEnabled = true;
+            }
         }
 
         private void SetPlayerNames()
