@@ -9,7 +9,7 @@ namespace PenteTests {
 
         [TestMethod]
         public void Test() {
-           
+            //GameManager gm = new GameManager();
         }
 
     }

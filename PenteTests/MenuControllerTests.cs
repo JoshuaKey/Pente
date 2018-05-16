@@ -15,7 +15,6 @@ namespace PenteTests {
             // Go To Mode Selection
             // Dissplay Rule
             // Quit
-
         }
 
     }
