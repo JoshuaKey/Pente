@@ -52,7 +52,7 @@
     <Compile Include="PlayerTests.cs" />
     <Compile Include="BoardTests.cs" />
     <Compile Include="GameManagerTests.cs" />
-    <Compile Include="BoardStateTests.cs" />
+    <Compile Include="TileStateTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

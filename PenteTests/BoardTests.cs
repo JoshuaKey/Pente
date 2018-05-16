@@ -8,6 +8,201 @@ namespace PenteTests {
     public class BoardTests {
 
         [TestMethod]
+        public void Board_Placement() {
+            Board b = new Board();
+
+            // Black
+            for (int i = 0; i < b.height; i++) {
+                for (int y = 0; y < b.width; y++) {
+                    b.Place(TileState.BLACK, y, i);
+                }
+            }
+
+            for (int i = 0; i < b.height; i++) {
+                for (int y = 0; y < b.width; y++) {
+                    Assert.AreEqual(TileState.BLACK, b.GetState(y, i));
+                }
+            }
+
+            for (int i = 0; i < b.height; i++) {
+                for (int y = 0; y < b.width; y++) {
+                    b.Remove(y, i);
+                }
+            }
+
+            // White
+            for (int i = 0; i < b.height; i++) {
+                for (int y = 0; y < b.width; y++) {
+                    b.Place(TileState.WHITE, y, i);
+                }
+            }
+
+            for (int i = 0; i < b.height; i++) {
+                for (int y = 0; y < b.width; y++) {
+                    Assert.AreEqual(TileState.WHITE, b.GetState(y, i));
+                }
+            }
+        }
+
+        [TestMethod]
+        public void Board_BadPlacement() {
+            Board b = new Board();
+
+            b.Place(TileState.WHITE, 1, 1);
+            b.Place(TileState.BLACK, 1, 1);
+            // What happens when we place on top of piece
+        }
+
+        [ExpectedException(typeof(IndexOutOfRangeException))]
+        [TestMethod]
+        public void Board_OutOfIndex() {
+            Board b = new Board();
+
+            bool hasException = false;
+            // Placement
+            {
+                try {
+                    b.Place(TileState.WHITE, 100, 100);
+                } catch (IndexOutOfRangeException e) {
+                    hasException = true;
+                }
+                Assert.AreEqual(true, hasException);
+
+                hasException = false;
+                try {
+                    b.Place(TileState.WHITE, -1, -1);
+                } catch (IndexOutOfRangeException e) {
+                    hasException = true;
+                }
+                Assert.AreEqual(true, hasException);
+
+                hasException = false;
+                try {
+                    b.Place(TileState.BLACK, 100, 100);
+                } catch (IndexOutOfRangeException e) {
+                    hasException = true;
+                }
+                Assert.AreEqual(true, hasException);
+
+                hasException = false;
+                try {
+                    b.Place(TileState.BLACK, -1, -1);
+                } catch (IndexOutOfRangeException e) {
+                    hasException = true;
+                }
+                Assert.AreEqual(true, hasException);
+            }
+
+            // Check
+            {
+                hasException = false;
+                try {
+                    b.Check(-1, -1);
+                } catch (IndexOutOfRangeException e) {
+                    hasException = true;
+                }
+                Assert.AreEqual(true, hasException);
+
+                hasException = false;
+                try {
+                    b.Check(100, 100);
+                } catch (IndexOutOfRangeException e) {
+                    hasException = true;
+                }
+                Assert.AreEqual(true, hasException);
+            }
+
+            //Get State
+            {
+                hasException = false;
+                try {
+                    b.GetState(100, 100);
+                } catch (IndexOutOfRangeException e) {
+                    hasException = true;
+                }
+                Assert.AreEqual(true, hasException);
+
+                hasException = false;
+                try {
+                    b.GetState(-1, -1);
+                } catch (IndexOutOfRangeException e) {
+                    hasException = true;
+                }
+                Assert.AreEqual(true, hasException);
+            }
+
+            // Remove
+            {
+                hasException = false;
+                try {
+                    b.Remove(-1, -1);
+                } catch (IndexOutOfRangeException e) {
+                    hasException = true;
+                }
+                Assert.AreEqual(true, hasException);
+
+                hasException = false;
+                try {
+                    b.Remove(100, 100);
+                } catch (IndexOutOfRangeException e) {
+                    hasException = true;
+                }
+                Assert.AreEqual(true, hasException);
+            }
+        }
+
+        [TestMethod]
+        public void Board_Remove() {
+            Board b = new Board();
+
+            for (int i = 0; i < b.height; i++) {
+                for (int y = 0; y < b.width; y++) {
+                    b.Place(TileState.BLACK, y, i);
+                }
+            }
+
+            for (int i = 0; i < b.height; i++) {
+                for (int y = 0; y < b.width; y++) {
+                    b.Remove(y, i);
+                }
+            }
+
+            for (int i = 0; i < b.height; i++) {
+                for (int y = 0; y < b.width; y++) {
+                    Assert.AreEqual(true, b.Check(y, i));
+                }
+            }
+        }
+
+        [TestMethod]
+        public void Board_Check() {
+            Board b = new Board();
+
+            for (int i = 0; i < b.height; i++) {
+                for (int y = 0; y < b.width; y++) {
+                    Assert.AreEqual(true, b.Check(i, y));
+                }
+            }
+
+            for (int i = 0; i < b.height; i++) {
+                for (int y = 0; y < b.width; y++) {
+                    b.Place(TileState.BLACK, y, i);
+                }
+            }
+
+            for (int i = 0; i < b.height; i++) {
+                for (int y = 0; y < b.width; y++) {
+                    Assert.AreEqual(false, b.Check(i, y));
+                }
+            }
+        }
+
+        [TestMethod]
+        public void Board_Clear() {
+            // ????
+        }
+
+        [TestMethod]
         public void Board_BlackPlacement() {
             Board b = new Board();
 
