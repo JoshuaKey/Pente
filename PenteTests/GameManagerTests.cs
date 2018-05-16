@@ -3,12 +3,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Pente;
 
 namespace PenteTests {
+
     [TestClass]
-    public class ModeSelectionTests {
+    public class GameManagerTests {
+
 
         [TestMethod]
         public void Test() {
-            ModeSelction ms = new ModeSelction();
+
         }
 
     }

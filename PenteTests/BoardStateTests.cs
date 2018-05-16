@@ -5,17 +5,11 @@ using Pente;
 namespace PenteTests {
 
     [TestClass]
-    public class MenuControllerTests {
+    public class BoardStateTests {
 
         [TestMethod]
         public void Test() {
-            MenuController mc = new MenuController();
-
             
-            // Go To Mode Selection
-            // Dissplay Rule
-            // Quit
         }
-
     }
 }
