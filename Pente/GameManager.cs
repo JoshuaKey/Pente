@@ -32,13 +32,40 @@ namespace Pente
             if (board.GetState(x, y) == TileState.EMPTY)
             {
                 TileState state = player1Turn ? player1.color : player2.color;
-                announcement = board.Place(state, x, y);
+                board.Place(state, x, y);
+                announcement = GetAnnouncement();
                 player1Turn = !player1Turn;
             }
             else
             {
                 announcement = "";
             }
+        }
+
+        private static string GetAnnouncement()
+        {
+            string announcement = "";
+
+            if (HasTria())
+            {
+                announcement = "Tria";
+            }
+            else if (HasTessera())
+            {
+                announcement = "Tessera";
+            }
+
+            return announcement;
+        }
+
+        private static bool HasTria()
+        {
+            return false;
+        }
+
+        private static bool HasTessera()
+        {
+            return false;
         }
     }
 }

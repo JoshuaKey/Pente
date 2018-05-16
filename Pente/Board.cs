@@ -38,31 +38,5 @@ namespace Pente
         {
             return TileState.EMPTY;
         }
-
-        private string GetAnnouncement()
-        {
-            string announcement = "";
-
-            if (HasTria())
-            {
-                announcement = "Tria";
-            }
-            else if (HasTessera())
-            {
-                announcement = "Tessera";
-            }
-
-            return announcement;
-        }
-
-        private bool HasTria()
-        {
-            return false;
-        }
-
-        private bool HasTessera()
-        {
-            return false;
-        }
     }
 }
