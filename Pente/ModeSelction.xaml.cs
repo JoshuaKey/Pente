@@ -22,6 +22,7 @@ namespace Pente
         public ModeSelction()
         {
             InitializeComponent();
+            GameManager.Initialize();
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)
@@ -37,6 +38,12 @@ namespace Pente
         private void Computer_Checked(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void SetPlayerNames()
+        {
+            GameManager.player1.name = tbx_p1Name.Text;
+            GameManager.player2.name = tbx_p2Name.Text;
         }
     }
 }

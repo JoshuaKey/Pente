@@ -8,7 +8,7 @@ namespace Pente
 {
     public class Player
     {
-        string name;
-        BoardState color;
+        public string name;
+        public TileState color;
     }
 }

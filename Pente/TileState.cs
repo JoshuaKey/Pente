@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pente
 {
-    public enum BoardState
+    public enum TileState
     {
         BLACK,
         WHITE,
