@@ -8,8 +8,7 @@ namespace PenteTests {
 
         [TestMethod]
         public void Test() {
-            // Test Player Name 
-            // Test Player Color
+
         }
     }
 }
