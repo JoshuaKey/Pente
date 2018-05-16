@@ -9,36 +9,36 @@ namespace PenteTests {
 
         [TestMethod]
         public void Board_Placement() {
-            Board b = new Board();
+            Board b = new Board(19, 19);
 
             // Black
-            for (int i = 0; i < b.height; i++) {
-                for (int y = 0; y < b.width; y++) {
+            for (int i = 0; i < b.Height; i++) {
+                for (int y = 0; y < b.Width; y++) {
                     b.Place(TileState.BLACK, y, i);
                 }
             }
 
-            for (int i = 0; i < b.height; i++) {
-                for (int y = 0; y < b.width; y++) {
+            for (int i = 0; i < b.Height; i++) {
+                for (int y = 0; y < b.Width; y++) {
                     Assert.AreEqual(TileState.BLACK, b.GetState(y, i));
                 }
             }
 
-            for (int i = 0; i < b.height; i++) {
-                for (int y = 0; y < b.width; y++) {
+            for (int i = 0; i < b.Height; i++) {
+                for (int y = 0; y < b.Width; y++) {
                     b.Remove(y, i);
                 }
             }
 
             // White
-            for (int i = 0; i < b.height; i++) {
-                for (int y = 0; y < b.width; y++) {
+            for (int i = 0; i < b.Height; i++) {
+                for (int y = 0; y < b.Width; y++) {
                     b.Place(TileState.WHITE, y, i);
                 }
             }
 
-            for (int i = 0; i < b.height; i++) {
-                for (int y = 0; y < b.width; y++) {
+            for (int i = 0; i < b.Height; i++) {
+                for (int y = 0; y < b.Width; y++) {
                     Assert.AreEqual(TileState.WHITE, b.GetState(y, i));
                 }
             }
@@ -46,7 +46,7 @@ namespace PenteTests {
 
         [TestMethod]
         public void Board_BadPlacement() {
-            Board b = new Board();
+            Board b = new Board(19, 19);
 
             b.Place(TileState.WHITE, 1, 1);
             b.Place(TileState.BLACK, 1, 1);
@@ -56,7 +56,7 @@ namespace PenteTests {
         [ExpectedException(typeof(IndexOutOfRangeException))]
         [TestMethod]
         public void Board_OutOfIndex() {
-            Board b = new Board();
+            Board b = new Board(19, 19);
 
             bool hasException = false;
             // Placement
@@ -153,22 +153,22 @@ namespace PenteTests {
 
         [TestMethod]
         public void Board_Remove() {
-            Board b = new Board();
+            Board b = new Board(19, 19);
 
-            for (int i = 0; i < b.height; i++) {
-                for (int y = 0; y < b.width; y++) {
+            for (int i = 0; i < b.Height; i++) {
+                for (int y = 0; y < b.Width; y++) {
                     b.Place(TileState.BLACK, y, i);
                 }
             }
 
-            for (int i = 0; i < b.height; i++) {
-                for (int y = 0; y < b.width; y++) {
+            for (int i = 0; i < b.Height; i++) {
+                for (int y = 0; y < b.Width; y++) {
                     b.Remove(y, i);
                 }
             }
 
-            for (int i = 0; i < b.height; i++) {
-                for (int y = 0; y < b.width; y++) {
+            for (int i = 0; i < b.Height; i++) {
+                for (int y = 0; y < b.Width; y++) {
                     Assert.AreEqual(true, b.Check(y, i));
                 }
             }
@@ -176,22 +176,22 @@ namespace PenteTests {
 
         [TestMethod]
         public void Board_Check() {
-            Board b = new Board();
+            Board b = new Board(19, 19);
 
-            for (int i = 0; i < b.height; i++) {
-                for (int y = 0; y < b.width; y++) {
+            for (int i = 0; i < b.Height; i++) {
+                for (int y = 0; y < b.Width; y++) {
                     Assert.AreEqual(true, b.Check(i, y));
                 }
             }
 
-            for (int i = 0; i < b.height; i++) {
-                for (int y = 0; y < b.width; y++) {
+            for (int i = 0; i < b.Height; i++) {
+                for (int y = 0; y < b.Width; y++) {
                     b.Place(TileState.BLACK, y, i);
                 }
             }
 
-            for (int i = 0; i < b.height; i++) {
-                for (int y = 0; y < b.width; y++) {
+            for (int i = 0; i < b.Height; i++) {
+                for (int y = 0; y < b.Width; y++) {
                     Assert.AreEqual(false, b.Check(i, y));
                 }
             }
@@ -204,7 +204,7 @@ namespace PenteTests {
 
         [TestMethod]
         public void Board_BlackPlacement() {
-            Board b = new Board();
+            Board b = new Board(19, 19);
 
             // Black Placement
             b.Place(TileState.BLACK, 1, 1);
@@ -220,7 +220,7 @@ namespace PenteTests {
 
         [TestMethod]
         public void Board_WhitePlacement() {
-            Board b = new Board();
+            Board b = new Board(19, 19);
 
             // Black Placement
             b.Place(TileState.WHITE, 1, 1);
@@ -236,7 +236,7 @@ namespace PenteTests {
 
         [TestMethod]
         public void Board_EmptyPlacement() {
-            Board b = new Board();
+            Board b = new Board(19, 19);
             b.Place(TileState.EMPTY, 1, 1); // What to do when Place Empty?
 
             Assert.AreEqual(TileState.EMPTY, b.GetState(1, 1));
@@ -252,14 +252,14 @@ namespace PenteTests {
         public void Board_Initialize() {
             int width = 19;
             int height = 19;
-            Board b = new Board();
+            Board b = new Board(19, 19);
 
             // Init Board
-            Assert.AreEqual(width, b.width);
-            Assert.AreEqual(height, b.height);
+            Assert.AreEqual(width, b.Width);
+            Assert.AreEqual(height, b.Height);
 
-            for(int i = 0; i < b.height; i++) {
-                for(int y = 0; y < b.width; y++) {
+            for(int i = 0; i < b.Height; i++) {
+                for(int y = 0; y < b.Width; y++) {
 
                     Assert.AreEqual(true, b.Check(y, i));
 

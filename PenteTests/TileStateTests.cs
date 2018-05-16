@@ -10,7 +10,7 @@ namespace PenteTests {
         [TestMethod]
         public void TileState_Names() {
             string[] names = Enum.GetNames(typeof(TileState));
-            string[] expectedNames = new string[] { "WHITE", "BLACK", "EMPTY" };
+            string[] expectedNames = new string[] { "BLACK", "WHITE", "EMPTY" };
 
             Assert.AreEqual(3, names.Length);
 
