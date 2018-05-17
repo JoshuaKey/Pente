@@ -10,6 +10,6 @@ namespace Pente
     {
         BLACK,
         WHITE,
-        EMPTY,
+        EMPTY
     }
 }

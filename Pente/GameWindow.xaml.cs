@@ -53,10 +53,17 @@ namespace Pente
             {
                 for (int j = 0; j < rows; ++j)
                 {
-                    Button b = new Button();
+                    Image b = new Image();
+                    Piece p = new Piece();
+                    b.DataContext = p;
+
+                    Binding binding = new Binding("TileState");
+                    binding.Converter = p;
+                    b.SetBinding(Image.SourceProperty, binding);
+                    
                     b.Width = double.NaN;
                     b.Height = double.NaN;
-                    b.Click += Button_Click;
+                    b.MouseDown += Button_Click;
                     Grid.SetColumn(b, i);
                     Grid.SetRow(b, j);
                     grd_tiles.Children.Add(b);
