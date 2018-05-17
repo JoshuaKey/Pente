@@ -25,6 +25,10 @@ namespace Pente
         {
             player1.name = p1Name;
             player2.name = p2Name;
+            if (p2Name == "Computer")
+            {
+                player2.isComputer = true;
+            }
         }
 
         public static void PlacePiece(int x, int y, out string announcement)
