@@ -255,6 +255,7 @@ namespace PenteTests {
             Board b = new Board(19, 19);
 
             // Init Board
+            Assert.AreNotEqual(null, b.tiles);
             Assert.AreEqual(width, b.Width);
             Assert.AreEqual(height, b.Height);
 
