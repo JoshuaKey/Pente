@@ -15,7 +15,7 @@ namespace Pente
         public Board(int columns, int rows)
         {
             tiles = new Piece[columns, rows];
-
+			Clear();
         }
 
         public void Place(TileState type, int x, int y)
