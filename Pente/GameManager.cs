@@ -41,12 +41,12 @@ namespace Pente
                 board.Place(state, x, y);
 				announcement = GetAnnouncement(x, y);
                 player1Turn = !player1Turn;
-				Console.WriteLine("Value: " + board.GetState(x, y));
             }
             else
             {
                 announcement = "";
             }
+			Console.WriteLine(announcement);
         }
 
         private static string GetAnnouncement(int x, int y)
@@ -64,7 +64,7 @@ namespace Pente
 
 			return announcement;
         }
-
+		
         private static bool HasTria(int x, int y)
         {
 			for (int dx = -1; dx <= 1; ++dx)
@@ -92,30 +92,26 @@ namespace Pente
 
         private static bool HasTessera(int x, int y)
         {
-			//Console.WriteLine("Tessera Check");
-			//Console.WriteLine("Value: " + board.GetState(x, y));
-			//for (int dx = -1; dx <= 1; ++dx)
-			//{
-			//	for (int dy = -1; dy <= 1; ++dy)
-			//	{
-			//		if (dx == 0 && dy == 0) continue;
-			//		for (int i = -3; i <= 0; ++i)
-			//		{
-			//			int numInRow = 0;
-			//			for (int j = i; j <= 3 + i; ++j)
-			//			{
-			//				try
-			//				{
-			//					Console.WriteLine("x: " + x + " y: " + y + " dx: " + dx + " dy: " + dy + " j: " + j);
-			//					Console.WriteLine("Value: " + board.GetState(x + dx * j, y + dy * j));
-			//					if (board.GetState(x, y) == board.GetState(x + dx * j, y + dy * j)) ++numInRow;
-			//				}
-			//				catch (IndexOutOfRangeException) { break; }
-			//			}
-			//			if (numInRow == 4) return true;
-			//		}
-			//	}
-			//}
+			for (int dx = -1; dx <= 1; ++dx)
+			{
+				for (int dy = -1; dy <= 1; ++dy)
+				{
+					if (dx == 0 && dy == 0) continue;
+					for (int i = -3; i <= 0; ++i)
+					{
+						int numInRow = 0;
+						for (int j = i; j <= 3 + i; ++j)
+						{
+							try
+							{
+								if (board.GetState(x, y) == board.GetState(x + dx * j, y + dy * j)) ++numInRow;
+							}
+							catch (IndexOutOfRangeException) { break; }
+						}
+						if (numInRow == 4) return true;
+					}
+				}
+			}
 			return false;
         }
 
@@ -170,18 +166,5 @@ namespace Pente
 			}
 			return captures;
 		}
-
-		//private static int NumInRow(int x, int y, int dx, int dy, int length)
-		//{
-		//	int num = 0;
-		//	for (int i = 0; i < length; ++i)
-		//	{
-		//		try
-		//		{
-		//			if (board.GetState(x, y) == board.GetState(x + dx * i, y + dy * i)) ++num;
-		//		} catch (IndexOutOfRangeException) { break; }
-		//	}
-		//	return num;
-		//}
     }
 }
