@@ -19,9 +19,12 @@ namespace Pente
     /// </summary>
     public partial class GameWindow : Window
     {
+        private Board board;
+
         public GameWindow(int width, int height)
         {
             InitializeComponent();
+            board = GameManager.board;
             AddColumns(width);
             AddRows(height);
             AddButtons(width, height);
@@ -29,21 +32,23 @@ namespace Pente
 
         private void AddColumns(int columns)
         {
+            grd_tiles.Columns = columns;
             for (int i = 0; i < columns; ++i)
             {
                 ColumnDefinition cd = new ColumnDefinition();
                 cd.Width = new GridLength(1, GridUnitType.Star);
-                grd_tiles.ColumnDefinitions.Add(cd);
+                //grd_tiles.ColumnDefinitions.Add(cd);
             }
         }
 
         private void AddRows(int rows)
         {
+            grd_tiles.Rows = rows;
             for (int i = 0; i < rows; ++i)
             {
                 RowDefinition rd = new RowDefinition();
                 rd.Height = new GridLength(1, GridUnitType.Star);
-                grd_tiles.RowDefinitions.Add(rd);
+                //grd_tiles.RowDefinitions.Add(rd);
             }
         }
 
@@ -55,7 +60,9 @@ namespace Pente
                 {
                     Image b = new Image();
                     Piece p = new Piece();
+                    p.TileState = TileState.EMPTY;
                     b.DataContext = p;
+                    board.tiles[i, j] = p;
 
                     Binding binding = new Binding("TileState");
                     binding.Converter = p;
@@ -73,8 +80,8 @@ namespace Pente
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int column = Grid.GetColumn(sender as Button);
-            int row = Grid.GetRow(sender as Button);
+            int column = Grid.GetColumn(sender as Image);
+            int row = Grid.GetRow(sender as Image);
             string announcement;
             GameManager.PlacePiece(column, row, out announcement);
         }

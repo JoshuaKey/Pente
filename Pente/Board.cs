@@ -37,7 +37,10 @@ namespace Pente
 
         public void Remove(int x, int y)
         {
-            tiles[x, y].TileState = TileState.EMPTY;
+            if (tiles[x, y] != null)
+            {
+                tiles[x, y].TileState = TileState.EMPTY;
+            }
         }
 
         public TileState GetState(int x, int y)
@@ -51,7 +54,6 @@ namespace Pente
             {
                 for (int y = 0; y < tiles.GetLength(1); y++)
                 {
-                    tiles[x, y] = new Piece();
                     Remove(x, y);
                 }
             }
