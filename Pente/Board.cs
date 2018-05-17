@@ -8,24 +8,24 @@ namespace Pente
 {
     public class Board
     {
-        public TileState[,] tiles;
+        public Piece[,] tiles;
         public int Width { get { return tiles.GetLength(0); } }
         public int Height { get { return tiles.GetLength(1); } }
 
         public Board(int columns, int rows)
         {
-            tiles = new TileState[columns, rows];
+            tiles = new Piece[columns, rows];
 
         }
 
         public void Place(TileState type, int x, int y)
         {
-            tiles[x, y] = type;
+            tiles[x, y].TileState = type;
         }
 
         public bool Check(int x, int y)
         {
-            if (tiles[x, y] == TileState.EMPTY)
+            if (tiles[x, y].TileState == TileState.EMPTY)
             {
                 return true;
             }
@@ -37,12 +37,12 @@ namespace Pente
 
         public void Remove(int x, int y)
         {
-            tiles[x, y] = TileState.EMPTY;
+            tiles[x, y].TileState = TileState.EMPTY;
         }
 
         public TileState GetState(int x, int y)
         {
-            return tiles[x, y];
+            return tiles[x, y].TileState;
         }
 
         public void Clear()
