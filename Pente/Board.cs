@@ -25,17 +25,35 @@ namespace Pente
 
         public bool Check(int x, int y)
         {
-            return false;
+            if (tiles[x, y] == TileState.EMPTY)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void Remove(int x, int y)
         {
-
+            tiles[x, y] = TileState.EMPTY;
         }
 
         public TileState GetState(int x, int y)
         {
-            return TileState.EMPTY;
+            return tiles[x, y];
+        }
+
+        public void Clear()
+        {
+            for(int x = 0; x < tiles.GetLength(0); x++)
+            {
+                for (int y = 0; y < tiles.GetLength(1); y++)
+                {
+                    Remove(x, y);
+                }
+            }
         }
     }
 }
