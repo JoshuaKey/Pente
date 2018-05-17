@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -12,9 +13,25 @@ using System.Windows.Media.Imaging;
 
 namespace Pente
 {
-    public class Piece : IValueConverter
+    public class Piece : IValueConverter, INotifyPropertyChanged
     {
-        public TileState TileState { get; set; }
+        private TileState state = TileState.EMPTY;
+        public TileState TileState
+        {
+            get { return state; }
+            set
+            {
+                state = value;
+                NotifyStateChanged("TileState");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyStateChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

@@ -58,22 +58,22 @@ namespace Pente
             {
                 for (int j = 0; j < rows; ++j)
                 {
-                    Image b = new Image();
-                    Piece p = new Piece();
-                    p.TileState = TileState.EMPTY;
-                    b.DataContext = p;
-                    board.tiles[i, j] = p;
+                    Image image = new Image();
+                    Piece p = board.tiles[i, j];
+                    //board.Place(TileState.BLACK, i, j);
+                    //p.TileState = TileState.BLACK;
+                    image.DataContext = p;
 
                     Binding binding = new Binding("TileState");
                     binding.Converter = p;
-                    b.SetBinding(Image.SourceProperty, binding);
-                    
-                    b.Width = double.NaN;
-                    b.Height = double.NaN;
-                    b.MouseDown += Button_Click;
-                    Grid.SetColumn(b, i);
-                    Grid.SetRow(b, j);
-                    grd_tiles.Children.Add(b);
+                    image.SetBinding(Image.SourceProperty, binding);
+
+                    image.Width = double.NaN;
+                    image.Height = double.NaN;
+                    image.MouseDown += Button_Click;
+                    Grid.SetColumn(image, i);
+                    Grid.SetRow(image, j);
+                    grd_tiles.Children.Add(image);
                 }
             }
         }
@@ -84,6 +84,20 @@ namespace Pente
             int row = Grid.GetRow(sender as Image);
             string announcement;
             GameManager.PlacePiece(column, row, out announcement);
+        }
+
+        private void Quit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void Menu_Click(object sender, RoutedEventArgs e)
+        {
+            MenuController mc = new MenuController();
+            mc.Left = Left;
+            mc.Top = 20;
+            mc.Show();
+            Close();
         }
     }
 }

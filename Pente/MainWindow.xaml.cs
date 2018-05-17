@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -20,23 +21,26 @@ namespace Pente {
     public partial class MenuController : Window {
         public MenuController() {
             InitializeComponent();
+            
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             ModeSelction ms = new ModeSelction();
+            ms.Left = Left;
+            ms.Top = Top;
             ms.Show();
             Close();
         }
 
         private void Rules_Click(object sender, RoutedEventArgs e)
         {
-
+            System.Diagnostics.Process.Start("http://www.pente.net/instructions.html");
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)
         {
-
+            Application.Current.Shutdown();
         }
     }
 }

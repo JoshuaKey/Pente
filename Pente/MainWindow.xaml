@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pente"
         mc:Ignorable="d"
-        Title="Menu" Height="350" Width="525">
-    <Grid>
-        <Button Content="Play" HorizontalAlignment="Left" Margin="221,136,0,0" VerticalAlignment="Top" Width="75" Click="Play_Click"/>
+        Title="Menu" Height="360" Width="535"
+        ResizeMode="NoResize">
+    <Grid Background="#FF98E3FF">
+        <Button Content="Play" HorizontalAlignment="Center" Margin="210,160,210,132.5" VerticalAlignment="Center" Width="100" Click="Play_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
+        <Label Content="Pente" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" FontFamily="Cooper Black" FontSize="48">
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0"/>
+                    <GradientStop Color="#FF848484" Offset="1"/>
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+        <Button Content="Quit" HorizontalAlignment="Center" Margin="210,240,210,52.5" VerticalAlignment="Center" Width="100" Click="Quit_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
+        <Button Content="Instructions" HorizontalAlignment="Center" Margin="184,201,186,91.5" VerticalAlignment="Center" Width="150" Click="Rules_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
     </Grid>
 </Window>

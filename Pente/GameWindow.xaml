@@ -5,6 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pente"
         mc:Ignorable="d"
-        Title="GameWindow" Height="380" Width="360" MaxWidth="360" MaxHeight="380" MinWidth="360" MinHeight="380">
-    <UniformGrid x:Name="grd_tiles" Margin="0,0,0,0"/>
+        Title="GameWindow" Height="599.9" Width="800"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+                <GradientStop Color="#FF43A5DB" Offset="0"/>
+                <GradientStop Color="#FF4EAED3" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <UniformGrid x:Name="grd_tiles" Width="520" HorizontalAlignment="Left" VerticalAlignment="Top" Height="562"/>
+        <Grid HorizontalAlignment="Left" Margin="0.5,0,0,-0.5" VerticalAlignment="Top" Grid.Column="1" Width="264" Height="572">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="1,0" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
+                    <GradientStop Color="#FF198BCC" Offset="0"/>
+                    <GradientStop Color="#FF0066A0" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Label x:Name="lbl_playerTurn" Content="Player 1's" HorizontalAlignment="Left" Margin="43,10,0,0" VerticalAlignment="Top" FontFamily="Cooper Black" FontSize="36" HorizontalContentAlignment="Center"/>
+            <Label Content="Turn" HorizontalAlignment="Left" Margin="83,66,0,0" VerticalAlignment="Top" FontFamily="Cooper Black" FontSize="36" HorizontalContentAlignment="Center"/>
+            <Button Content="Quit" Click="Quit_Click" HorizontalAlignment="Center" Margin="66,486,53,35" VerticalAlignment="Center" Width="145" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="51" FontSize="30"/>
+            <TextBlock x:Name="tbl_announcement" HorizontalAlignment="Left" Margin="40,195,0,0" TextWrapping="Wrap" Text="HOLY COW! Player 2 got a Tessera!" VerticalAlignment="Top" Height="204" Width="200" FontFamily="Cooper Black" FontSize="30" Foreground="#FFFFDC00"/>
+            <Button Content="Main Menu" Click="Menu_Click" HorizontalAlignment="Center" Margin="41,416,20,105" VerticalAlignment="Center" Width="203" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="51" FontSize="30"/>
+        </Grid>
+        <Rectangle Grid.Column="1" Fill="#FF878787" HorizontalAlignment="Left" Height="572" Margin="0.5,0,0,-0.5" VerticalAlignment="Top" Width="15"/>
+    </Grid>
 </Window>
