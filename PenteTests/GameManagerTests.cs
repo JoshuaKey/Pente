@@ -32,7 +32,59 @@ namespace PenteTests {
 
         [TestMethod]
         public void GameManager_BadInit() {
+            GameManager.Initialize(19);
 
+            Assert.AreEqual(19, GameManager.board.Height);
+            Assert.AreEqual(19, GameManager.board.Width);
+            Assert.AreNotEqual(null, GameManager.board.tiles);
+
+            bool hasException = false;
+            try {
+                GameManager.Initialize(18); // Invalid
+            } catch (IndexOutOfRangeException e) {
+                hasException = true;
+            }
+            Assert.AreEqual(true, hasException);
+
+            hasException = false;
+            try {
+                GameManager.Initialize(20); // Invalid
+            } catch (IndexOutOfRangeException e) {
+                hasException = true;
+            }
+            Assert.AreEqual(true, hasException);
+
+            hasException = false;
+            try {
+                GameManager.Initialize(9); // Invalid
+            } catch (IndexOutOfRangeException e) {
+                hasException = true;
+            }
+            Assert.AreEqual(true, hasException);
+
+            hasException = false;
+            try {
+                GameManager.Initialize(39); // Invalid
+            } catch (IndexOutOfRangeException e) {
+                hasException = true;
+            }
+            Assert.AreEqual(true, hasException);
+
+            hasException = false;
+            try {
+                GameManager.Initialize(41); // Invalid
+            } catch (IndexOutOfRangeException e) {
+                hasException = true;
+            }
+            Assert.AreEqual(true, hasException);
+
+            hasException = false;
+            try {
+                GameManager.Initialize(7); // Invalid
+            } catch (IndexOutOfRangeException e) {
+                hasException = true;
+            }
+            Assert.AreEqual(true, hasException);
         }
 
         [TestMethod]
@@ -701,8 +753,9 @@ namespace PenteTests {
             // Assert Turn Amo
         }
 
+
         [TestMethod]
-        public void GameManager_WinPlacement() {
+        public void GameManager_WinPlacementBlack() {
             GameManager.Initialize();
             Assert.AreEqual(TileState.WHITE, GameManager.player1.color);
             Assert.AreEqual(TileState.BLACK, GameManager.player2.color);
@@ -710,18 +763,147 @@ namespace PenteTests {
             string temp;
             int half = GameManager.board.Width / 2;
 
-            GameManager.PlacePiece(half, half, out temp);
-            Assert.AreNotEqual("Win", temp);
+            // Horizontal
+            {
+                GameManager.Initialize();
 
-            GameManager.PlacePiece(half + 1, half + 1, out temp);
-            Assert.AreNotEqual("Win", temp);
+                GameManager.PlacePiece(half, half, out temp);
+                Assert.AreNotEqual("Win", temp);
 
-            GameManager.PlacePiece(half + 4, half, out temp);
-            Assert.AreNotEqual("Win", temp);
+                GameManager.PlacePiece(half, half + 1, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 4, half, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 4, half + 1, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 1, half, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 1, half + 1, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 2, half, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 2, half + 1, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 3, half, out temp);
+                Assert.AreEqual("Win", temp);
+            }
         }
 
         [TestMethod]
-        public void GameManager_WinCapture() {
+        public void GameManager_WinPlacementWhite() {
+            GameManager.Initialize();
+            Assert.AreEqual(TileState.WHITE, GameManager.player1.color);
+            Assert.AreEqual(TileState.BLACK, GameManager.player2.color);
+
+            string temp;
+            int half = GameManager.board.Width / 2;
+
+            // Horizontal
+            {
+                GameManager.Initialize();
+
+                GameManager.PlacePiece(half, half, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half, half + 1, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 4, half, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 4, half + 1, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 1, half, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 1, half + 1, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 2, half, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 2, half + 1, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 3, half, out temp);
+                Assert.AreEqual("Win", temp);
+            }
+
+            // Vertical
+            {
+                GameManager.Initialize();
+
+                GameManager.PlacePiece(half, half, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 1, half, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half, half + 4, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 1, half + 4, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half, half + 1, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 1, half + 1, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half, half + 2, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 1, half + 2, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half, half + 3, out temp);
+                Assert.AreEqual("Win", temp);
+            }
+
+            // Diagonal
+            {
+                GameManager.Initialize();
+
+                GameManager.PlacePiece(half, half, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half - 1, half, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 4, half + 4, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half - 1, half - 4, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 1, half + 1, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half - 1, half - 1, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 2, half + 2, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half - 1, half - 2, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                GameManager.PlacePiece(half + 3, half + 3, out temp);
+                Assert.AreEqual("Win", temp);
+            }
+        }
+
+        [TestMethod]
+        public void GameManager_WinCaptureWhite() {
             GameManager.Initialize();
             Assert.AreEqual(TileState.WHITE, GameManager.player1.color);
             Assert.AreEqual(TileState.BLACK, GameManager.player2.color);
@@ -737,6 +919,27 @@ namespace PenteTests {
 
             GameManager.PlacePiece(half + 4, half, out temp);
             Assert.AreNotEqual("Win", temp);
+            // TODO
+        }
+
+        [TestMethod]
+        public void GameManager_WinCaptureBlack() {
+            GameManager.Initialize();
+            Assert.AreEqual(TileState.WHITE, GameManager.player1.color);
+            Assert.AreEqual(TileState.BLACK, GameManager.player2.color);
+
+            string temp;
+            int half = GameManager.board.Width / 2;
+
+            GameManager.PlacePiece(half, half, out temp);
+            Assert.AreNotEqual("Win", temp);
+
+            GameManager.PlacePiece(half + 1, half + 1, out temp);
+            Assert.AreNotEqual("Win", temp);
+
+            GameManager.PlacePiece(half + 4, half, out temp);
+            Assert.AreNotEqual("Win", temp);
+            // TODO
         }
 
         [TestMethod]
@@ -750,12 +953,28 @@ namespace PenteTests {
 
             GameManager.PlacePiece(half, half, out temp);
             Assert.AreNotEqual("Win", temp);
+ 
+            for(int i = 0; i < 9; i++) {
+                GameManager.PlacePiece(0, i, out temp);
+                Assert.AreNotEqual("Win", temp);
+                GameManager.PlacePiece(3, i, out temp);
+                Assert.AreNotEqual("Win", temp);
 
-            GameManager.PlacePiece(half + 1, half + 1, out temp);
-            Assert.AreNotEqual("Win", temp);
+                GameManager.PlacePiece(1, i, out temp);
+                Assert.AreNotEqual("Win", temp);
+                GameManager.PlacePiece(4, i, out temp);
+                Assert.AreNotEqual("Win", temp);
 
-            GameManager.PlacePiece(half + 4, half, out temp);
-            Assert.AreNotEqual("Win", temp);
+                GameManager.PlacePiece(2, i, out temp);
+                Assert.AreNotEqual("Win", temp);
+                GameManager.PlacePiece(5, i, out temp);
+                Assert.AreNotEqual("Win", temp);
+
+                if (temp == "Draw") {
+                    Assert.AreEqual(8, i);
+                    Assert.AreEqual(8, i);
+                }
+            }
         }
 
         [TestMethod]
