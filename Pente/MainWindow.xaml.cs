@@ -45,12 +45,15 @@ namespace Pente {
 
         private void Load_Click(object sender, RoutedEventArgs e)
         {
-            GameManager.Load();
-            GameWindow gw = new GameWindow();
-            gw.Show();
-            gw.Top = 0;
-            gw.Left = Left;
-            Close();
+            bool success = GameManager.Load();
+            if (success)
+            {
+                GameWindow gw = new GameWindow();
+                gw.Show();
+                gw.Top = 0;
+                gw.Left = Left;
+                Close();
+            }
         }
     }
 }
