@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pente
 {
+	[Serializable]
     public class Player
     {
         public string name;

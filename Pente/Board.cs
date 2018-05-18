@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pente
 {
+	[Serializable]
     public class Board
     {
         public Piece[,] tiles;
@@ -59,5 +60,11 @@ namespace Pente
                 }
             }
         }
+
+		public bool IsFull()
+		{
+			for (int i = 0; i < tiles.GetLength(0); ++i) for (int j = 0; j < tiles.GetLength(1); ++j) if (tiles[i, j].TileState == TileState.EMPTY) return false;
+			return true;
+		}
     }
 }

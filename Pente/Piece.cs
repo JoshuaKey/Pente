@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 
 namespace Pente
 {
+	[Serializable]
     public class Piece : IValueConverter, INotifyPropertyChanged
     {
         private TileState state = TileState.EMPTY;
@@ -25,7 +26,8 @@ namespace Pente
                 NotifyStateChanged("TileState");
             }
         }
-
+		
+		[field:NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyStateChanged(string propertyName)
