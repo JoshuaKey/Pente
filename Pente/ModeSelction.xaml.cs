@@ -24,14 +24,14 @@ namespace Pente
         public ModeSelction()
         {
             InitializeComponent();
-            GameManager.Initialize();
+            GameManager.Initialize(19);
             p2Name = "";
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             SetPlayerNames();
-            GameWindow gw = new GameWindow(19, 19);
+            GameWindow gw = new GameWindow(GameManager.size, GameManager.size);
             gw.Left = Left;
             gw.Top = 0;
             gw.Show();

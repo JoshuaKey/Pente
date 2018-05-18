@@ -82,9 +82,8 @@ namespace Pente
             int column = Grid.GetColumn(sender as Image);
             int row = Grid.GetRow(sender as Image);
             string announcement;
-            tbl_announcement.Text = $"Holy Cow! {GameManager.GetCurrentPlayer().name} got a ";
             GameManager.PlacePiece(column, row, out announcement);
-            tbl_announcement.Text = string.IsNullOrEmpty(announcement) ? "" : tbl_announcement.Text + announcement;
+            tbl_announcement.Text = string.IsNullOrEmpty(announcement) ? "" : announcement;
             lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
         }
 

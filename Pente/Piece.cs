@@ -25,9 +25,9 @@ namespace Pente
                 NotifyStateChanged("TileState");
             }
         }
-        public static string EmptyPath { get { return @"..\..\Images\PenteEmpty.png"; } }
-        public static string BlackPath { get { return @"..\..\Images\PenteBlack.png"; } }
-        public static string WhitePath { get { return @"..\..\Images\PenteWhite.png"; } }
+        public static string EmptyPath { get { return @"..\..\..\Pente\Images\PenteEmpty.png"; } }
+        public static string BlackPath { get { return @"..\..\..\Pente\Images\PenteBlackCross.png"; } }
+        public static string WhitePath { get { return @"..\..\..\Pente\Images\PenteWhiteCross.png"; } }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

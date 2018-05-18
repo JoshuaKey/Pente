@@ -11,9 +11,11 @@ namespace Pente
         public static Player player1;
         public static Player player2;
         public static Board board;
+        public static int size;
         public static bool player1Turn;
+        public static bool BoardLocked { get; private set; }
 
-        public static void Initialize()
+        public static void Initialize(int boardSize)
         {
             player1 = new Player();
             player2 = new Player();
@@ -21,8 +23,10 @@ namespace Pente
             player2.name = "Player 2";
             player1.color = TileState.WHITE;
             player2.color = TileState.BLACK;
-            board = new Board(19, 19);
+            size = boardSize;
+            board = new Board(size, size);
             player1Turn = true;
+            BoardLocked = false;
         }
 
         public static void SetPlayerNames(string p1Name, string p2Name)
@@ -46,7 +50,11 @@ namespace Pente
 
         public static void PlacePiece(int x, int y, out string announcement)
         {
-            if (board.GetState(x, y) == TileState.EMPTY)
+            if (!board.IsValid(x, y))
+            {
+                throw new IndexOutOfRangeException($"The coordinate {x},{y} is out of range");
+            }
+            if (board.GetState(x, y) == TileState.EMPTY && !BoardLocked)
             {
                 TileState state = player1Turn ? player1.color : player2.color;
                 board.Place(state, x, y);
@@ -61,16 +69,35 @@ namespace Pente
 
         private static string GetAnnouncement(int x, int y)
         {
-            string announcement = "";
+            string announcement = GetCurrentPlayer().name;
 
-			if (HasTessera(x, y))
+            if (!board.IsValid(x, y))
+            {
+                throw new IndexOutOfRangeException($"The coordinate {x},{y} is out of range");
+            }
+            if (HasPente(x, y))
+            {
+                announcement += " has won the game!";
+                BoardLocked = true;
+            }
+            else if (HasTessera(x, y))
 			{
-				announcement = "Tessera";
+				announcement += " got a Tessera!";
 			}
 			else if (HasTria(x, y))
 			{
-				announcement = "Tria";
+				announcement += " got a Tria!";
 			}
+            int captures = HasCaptures(x, y);
+            if (captures >= 1)
+            {
+                announcement += captures > 1 ?  $" made {captures} captures!" : $" made {captures} capture!";
+            }
+
+            if (announcement == GetCurrentPlayer().name)
+            {
+                announcement = "";
+            }
 
 			return announcement;
         }
