@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pente"
         mc:Ignorable="d"
-        Title="ModeSelction" Height="300" Width="400"
+        Title="ModeSelction" Height="363.75" Width="400"
         ResizeMode="NoResize">
     <Grid Background="#FF98E3FF">
         <TextBox x:Name="tbx_p1Name" HorizontalAlignment="Left" Height="30" Margin="129,92,0,0" TextWrapping="Wrap" Text="Player 1" VerticalAlignment="Top" Width="154" FontFamily="Cooper Black" FontSize="20" MaxLength="20" Background="#FFCCCCCC"/>
@@ -23,6 +23,9 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
+        <Slider x:Name="sld_boardSize" IsSnapToTickEnabled="True" HorizontalAlignment="Left" Margin="138,211,0,0" VerticalAlignment="Top" Height="26" Width="145" Maximum="39" Minimum="9" SmallChange="2" TickFrequency="2" LargeChange="4" Value="19" TickPlacement="TopLeft"/>
+        <Label Content="Board Size:" HorizontalAlignment="Left" Margin="10,203,0,0" VerticalAlignment="Top" Height="30" FontFamily="Cooper Black" FontSize="20"/>
+        <Label x:Name="lbl_boardSize" Content="{Binding ElementName=sld_boardSize, Path=Value}" HorizontalAlignment="Left" Margin="293,203,0,0" VerticalAlignment="Top" FontFamily="Cooper Black" FontSize="20"/>
 
     </Grid>
 </Window>
