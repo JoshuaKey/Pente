@@ -221,13 +221,13 @@ namespace Pente
 			return captures;
 		}
 
-		public static void Save()
+		public static bool Save()
 		{
 			SaveFileDialog sFileDiag = new SaveFileDialog();
 			sFileDiag.Title = "Save Game Location";
 			sFileDiag.Filter = "Pente Save|*.save";
 			sFileDiag.ShowDialog();
-			if (sFileDiag.FileName == "") return;
+			if (sFileDiag.FileName == "") return false;
 
 			object[] objs = new object[]
 			{
@@ -240,15 +240,16 @@ namespace Pente
 			BinaryFormatter format = new BinaryFormatter();
 			format.Serialize(fstream, objs);
 			fstream.Close();
+			return true;
 		}
 
-		public static void Load()
+		public static bool Load()
 		{
 			OpenFileDialog oFileDiag = new OpenFileDialog();
 			oFileDiag.Title = "Load Game";
 			oFileDiag.Filter = "Pente Save|*.save";
 			oFileDiag.ShowDialog();
-			if (oFileDiag.FileName == "") return;
+			if (oFileDiag.FileName == "") return false;
 
 			Stream fstream = oFileDiag.OpenFile();
 			BinaryFormatter format = new BinaryFormatter();
@@ -258,6 +259,7 @@ namespace Pente
 			board = (Board)objs[2];
 			player1Turn = (bool)objs[3];
 			fstream.Close();
+			return true;
 		}
     }
 }
