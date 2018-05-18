@@ -17,14 +17,18 @@ namespace Pente
         {
             player1 = new Player();
             player2 = new Player();
+            player1.name = "Player 1";
+            player2.name = "Player 2";
+            player1.color = TileState.WHITE;
+            player2.color = TileState.BLACK;
             board = new Board(19, 19);
             player1Turn = true;
         }
 
         public static void SetPlayerNames(string p1Name, string p2Name)
         {
-            player1.name = p1Name;
-            player2.name = p2Name;
+            player1.name = string.IsNullOrEmpty(p1Name) ? "Player 1" : p1Name;
+            player2.name = string.IsNullOrEmpty(p2Name) ? "Player 2" : p2Name;
             if (p2Name == "Computer")
             {
                 player2.isComputer = true;

@@ -32,13 +32,19 @@ namespace Pente
         {
             SetPlayerNames();
             GameWindow gw = new GameWindow(19, 19);
+            gw.Left = Left;
+            gw.Top = 0;
             gw.Show();
             Close();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-
+            MenuController mc = new MenuController();
+            mc.Left = Left;
+            mc.Top = Top;
+            mc.Show();
+            Close();
         }
 
         private void Computer_Clicked(object sender, RoutedEventArgs e)

@@ -19,9 +19,12 @@ namespace Pente
     /// </summary>
     public partial class GameWindow : Window
     {
+        private Board board;
+
         public GameWindow(int width, int height)
         {
             InitializeComponent();
+            board = GameManager.board;
             AddColumns(width);
             AddRows(height);
             AddButtons(width, height);
@@ -29,21 +32,23 @@ namespace Pente
 
         private void AddColumns(int columns)
         {
+            grd_tiles.Columns = columns;
             for (int i = 0; i < columns; ++i)
             {
                 ColumnDefinition cd = new ColumnDefinition();
                 cd.Width = new GridLength(1, GridUnitType.Star);
-                grd_tiles.ColumnDefinitions.Add(cd);
+                //grd_tiles.ColumnDefinitions.Add(cd);
             }
         }
 
         private void AddRows(int rows)
         {
+            grd_tiles.Rows = rows;
             for (int i = 0; i < rows; ++i)
             {
                 RowDefinition rd = new RowDefinition();
                 rd.Height = new GridLength(1, GridUnitType.Star);
-                grd_tiles.RowDefinitions.Add(rd);
+                //grd_tiles.RowDefinitions.Add(rd);
             }
         }
 
@@ -53,30 +58,46 @@ namespace Pente
             {
                 for (int j = 0; j < rows; ++j)
                 {
-                    Image b = new Image();
-                    Piece p = new Piece();
-                    b.DataContext = p;
+                    Image image = new Image();
+                    Piece p = board.tiles[i, j];
+                    //board.Place(TileState.BLACK, i, j);
+                    //p.TileState = TileState.BLACK;
+                    image.DataContext = p;
 
                     Binding binding = new Binding("TileState");
                     binding.Converter = p;
-                    b.SetBinding(Image.SourceProperty, binding);
-                    
-                    b.Width = double.NaN;
-                    b.Height = double.NaN;
-                    b.MouseDown += Button_Click;
-                    Grid.SetColumn(b, i);
-                    Grid.SetRow(b, j);
-                    grd_tiles.Children.Add(b);
+                    image.SetBinding(Image.SourceProperty, binding);
+
+                    image.Width = double.NaN;
+                    image.Height = double.NaN;
+                    image.MouseDown += Button_Click;
+                    Grid.SetColumn(image, i);
+                    Grid.SetRow(image, j);
+                    grd_tiles.Children.Add(image);
                 }
             }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int column = Grid.GetColumn(sender as Button);
-            int row = Grid.GetRow(sender as Button);
+            int column = Grid.GetColumn(sender as Image);
+            int row = Grid.GetRow(sender as Image);
             string announcement;
             GameManager.PlacePiece(column, row, out announcement);
+        }
+
+        private void Quit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void Menu_Click(object sender, RoutedEventArgs e)
+        {
+            MenuController mc = new MenuController();
+            mc.Left = Left;
+            mc.Top = 20;
+            mc.Show();
+            Close();
         }
     }
 }
