@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Forms;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace Pente
 {
@@ -11,9 +16,11 @@ namespace Pente
         public static Player player1;
         public static Player player2;
         public static Board board;
+        public static int size;
         public static bool player1Turn;
+        public static bool BoardLocked { get; private set; }
 
-        public static void Initialize()
+        public static void Initialize(int boardSize)
         {
             player1 = new Player();
             player2 = new Player();
@@ -21,8 +28,10 @@ namespace Pente
             player2.name = "Player 2";
             player1.color = TileState.WHITE;
             player2.color = TileState.BLACK;
-            board = new Board(19, 19);
+            size = boardSize;
+            board = new Board(size, size);
             player1Turn = true;
+            BoardLocked = false;
         }
 
         public static void SetPlayerNames(string p1Name, string p2Name)
@@ -46,7 +55,11 @@ namespace Pente
 
         public static void PlacePiece(int x, int y, out string announcement)
         {
-            if (board.GetState(x, y) == TileState.EMPTY)
+            if (!board.IsValid(x, y))
+            {
+                throw new IndexOutOfRangeException($"The coordinate {x},{y} is out of range");
+            }
+            if (board.GetState(x, y) == TileState.EMPTY && !BoardLocked)
             {
                 TileState state = player1Turn ? player1.color : player2.color;
                 board.Place(state, x, y);
@@ -61,22 +74,43 @@ namespace Pente
 
         private static string GetAnnouncement(int x, int y)
         {
-            string announcement = "";
+            string announcement = GetCurrentPlayer().name;
 
-			if (HasTessera(x, y))
+            if (!board.IsValid(x, y))
+            {
+                throw new IndexOutOfRangeException($"The coordinate {x},{y} is out of range");
+            }
+            if (HasPente(x, y))
+            {
+                announcement += " has won the game!";
+                BoardLocked = true;
+            }
+            else if (HasTessera(x, y))
 			{
-				announcement = "Tessera";
+				announcement += " got a Tessera!";
 			}
 			else if (HasTria(x, y))
 			{
-				announcement = "Tria";
+				announcement += " got a Tria!";
 			}
+            int captures = HasCaptures(x, y);
+            if (captures >= 1)
+            {
+                announcement += captures > 1 ?  $" made {captures} captures!" : $" made {captures} capture!";
+            }
+
+            if (announcement == GetCurrentPlayer().name)
+            {
+                announcement = "";
+            }
 
 			return announcement;
         }
 		
         private static bool HasTria(int x, int y)
-        {
+		{
+			TileState thisState = board.GetState(x, y);
+			TileState otherState = thisState == TileState.WHITE ? TileState.BLACK : TileState.WHITE;
 			for (int dx = -1; dx <= 1; ++dx)
 			{
 				for (int dy = -1; dy <= 1; ++dy)
@@ -89,10 +123,15 @@ namespace Pente
 						{
 							try
 							{
-								if (board.GetState(x, y) == board.GetState(x + dx * j, y + dy * j)) ++numInRow;
+								TileState state = board.GetState(x + dx * j, y + dy * j);
+								if (state == thisState) ++numInRow;
+								if (state == otherState) --numInRow;
 							}
 							catch (IndexOutOfRangeException) { break; }
 						}
+						bool almostBracket = false;
+						try { if (board.GetState(x + dx * (i - 1), y + dy * (i - 1)) == otherState) almostBracket = true; } catch (IndexOutOfRangeException) { almostBracket = true; }
+						try { if (almostBracket && board.GetState(x + dx * (i + 4), y + dy * (i + 4)) == otherState) return false; } catch (IndexOutOfRangeException) { if (almostBracket) return false; }
 						if (numInRow == 3) return true;
 					}
 				}
@@ -101,7 +140,9 @@ namespace Pente
         }
 
         private static bool HasTessera(int x, int y)
-        {
+		{
+			TileState thisState = board.GetState(x, y);
+			TileState otherState = thisState == TileState.WHITE ? TileState.BLACK : TileState.WHITE;
 			for (int dx = -1; dx <= 1; ++dx)
 			{
 				for (int dy = -1; dy <= 1; ++dy)
@@ -114,10 +155,13 @@ namespace Pente
 						{
 							try
 							{
-								if (board.GetState(x, y) == board.GetState(x + dx * j, y + dy * j)) ++numInRow;
+								if (board.GetState(x + dx * j, y + dy * j) == thisState) ++numInRow;
 							}
 							catch (IndexOutOfRangeException) { break; }
 						}
+						bool almostBracket = false;
+						try	{ if (board.GetState(x + dx * (i - 1), y + dy * (i - 1)) == otherState) almostBracket = true;} catch (IndexOutOfRangeException) { almostBracket = true; }
+						try { if (almostBracket && board.GetState(x + dx * (i + 4), y + dy * (i + 4)) == otherState) return false; } catch (IndexOutOfRangeException) { if (almostBracket) return false; }
 						if (numInRow == 4) return true;
 					}
 				}
@@ -175,6 +219,47 @@ namespace Pente
 				}
 			}
 			return captures;
+		}
+
+		public static bool Save()
+		{
+			SaveFileDialog sFileDiag = new SaveFileDialog();
+			sFileDiag.Title = "Save Game Location";
+			sFileDiag.Filter = "Pente Save|*.save";
+			sFileDiag.ShowDialog();
+			if (sFileDiag.FileName == "") return false;
+
+			object[] objs = new object[]
+			{
+				player1,
+				player2,
+				board,
+				player1Turn
+			};
+			Stream fstream = sFileDiag.OpenFile();
+			BinaryFormatter format = new BinaryFormatter();
+			format.Serialize(fstream, objs);
+			fstream.Close();
+			return true;
+		}
+
+		public static bool Load()
+		{
+			OpenFileDialog oFileDiag = new OpenFileDialog();
+			oFileDiag.Title = "Load Game";
+			oFileDiag.Filter = "Pente Save|*.save";
+			oFileDiag.ShowDialog();
+			if (oFileDiag.FileName == "") return false;
+
+			Stream fstream = oFileDiag.OpenFile();
+			BinaryFormatter format = new BinaryFormatter();
+			object[] objs = (object[])format.Deserialize(fstream);
+			player1 = (Player)objs[0];
+			player2 = (Player)objs[1];
+			board = (Board)objs[2];
+			player1Turn = (bool)objs[3];
+			fstream.Close();
+			return true;
 		}
     }
 }
