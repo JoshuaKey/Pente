@@ -26,7 +26,10 @@ namespace Pente
                 NotifyStateChanged("TileState");
             }
         }
-		
+        public static string EmptyPath { get { return @"..\..\..\Pente\Images\PenteEmpty.png"; } }
+        public static string BlackPath { get { return @"..\..\..\Pente\Images\PenteBlackCross.png"; } }
+        public static string WhitePath { get { return @"..\..\..\Pente\Images\PenteWhiteCross.png"; } }
+
 		[field:NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -44,13 +47,13 @@ namespace Pente
             switch (state)
             {
                 case TileState.EMPTY:
-                    imageString = @"..\..\Images\PenteEmpty.png";
+                    imageString = EmptyPath;
                     break;
                 case TileState.WHITE:
-                    imageString = @"..\..\Images\PenteWhite.png";
+                    imageString = WhitePath;
                     break;
                 case TileState.BLACK:
-                    imageString = @"..\..\Images\PenteBlack.png";
+                    imageString = BlackPath;
                     break;
             }
 

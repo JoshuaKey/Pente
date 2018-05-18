@@ -49,6 +49,11 @@ namespace Pente
             return tiles[x, y].TileState;
         }
 
+        public bool IsValid(int x, int y)
+        {
+            return tiles[x, y] != null;
+        }
+
         public void Clear()
         {
             for(int x = 0; x < tiles.GetLength(0); x++)
