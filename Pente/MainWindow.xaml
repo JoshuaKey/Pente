@@ -17,7 +17,8 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-        <Button Content="Quit" HorizontalAlignment="Center" Margin="210,240,210,52.5" VerticalAlignment="Center" Width="100" Click="Quit_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
-        <Button Content="Instructions" HorizontalAlignment="Center" Margin="184,201,186,91.5" VerticalAlignment="Center" Width="150" Click="Rules_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
+        <Button Content="Quit" HorizontalAlignment="Center" Margin="214,278,215,23.5" VerticalAlignment="Center" Width="100" Click="Quit_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
+        <Button Content="Instructions" HorizontalAlignment="Center" Margin="188,240,191,61.5" VerticalAlignment="Center" Width="150" Click="Rules_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
+        <Button Content="Load" HorizontalAlignment="Center" Margin="214,202,215,99.5" VerticalAlignment="Center" Width="100" Click="Load_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
     </Grid>
 </Window>
