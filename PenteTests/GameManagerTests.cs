@@ -69,12 +69,17 @@ namespace PenteTests {
             GameManager.SetPlayerNames("", "Lucas");
             Assert.AreEqual("Player1", GameManager.player1.name);
             Assert.AreEqual("Lucas", GameManager.player2.name);
+            Assert.AreEqual(false, GameManager.player2.isComputer);
 
             GameManager.SetPlayerNames("Josh", "");
             Assert.AreEqual("Josh", GameManager.player1.name);
             Assert.AreEqual("Player2", GameManager.player2.name);
+            Assert.AreEqual(false, GameManager.player2.isComputer);
 
-            // Set Computer Name...
+            GameManager.SetPlayerNames("Josh", "Computer");
+            Assert.AreEqual("Josh", GameManager.player1.name);
+            Assert.AreEqual("Computer", GameManager.player2.name);
+            Assert.AreEqual(true, GameManager.player2.isComputer);
         }
 
         [TestMethod]
@@ -556,6 +561,132 @@ namespace PenteTests {
                 Assert.AreEqual("Tria", temp);
 
                 GameManager.PlacePiece(half + 1, half + 2, out temp); // Black
+                Assert.AreEqual("Tria", temp);
+            }
+
+            // Top Side Not
+            {
+                GameManager.Initialize();
+                // Before
+                GameManager.PlacePiece(half, half, out temp); // White
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half, half - 1, out temp); // Black
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half, half + 1, out temp); // White
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half + 1, half + 1, out temp); // Black
+                Assert.AreEqual("", temp);
+
+                // Is
+                GameManager.PlacePiece(half, half + 2, out temp); // White
+                Assert.AreEqual("Tria", temp);
+            }
+
+            // Bot Side Not
+            {
+                GameManager.Initialize();
+                // Before
+                GameManager.PlacePiece(half, half, out temp); // White
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half, half + 1, out temp); // Black
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half, half - 1, out temp); // White
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half + 1, half - 1, out temp); // Black
+                Assert.AreEqual("", temp);
+
+                // Is
+                GameManager.PlacePiece(half, half - 2, out temp); // White
+                Assert.AreEqual("Tria", temp);
+            }
+
+            // Both side Not
+            {
+                GameManager.Initialize();
+                // Before
+                GameManager.PlacePiece(half, half, out temp); // White
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half, half - 1, out temp); // Black
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half, half + 1, out temp); // White
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half, half + 3, out temp); // Black
+                Assert.AreEqual("", temp);
+
+                // Is
+                GameManager.PlacePiece(half, half + 2, out temp); // White
+                Assert.AreNotEqual("Tria", temp);
+            }
+
+            // Almost Tessera Down
+            {
+                GameManager.Initialize();
+                // Before
+                GameManager.PlacePiece(half, half, out temp); // White
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half + 1, half, out temp); // Black
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half, half + 1, out temp); // White
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half + 1, half + 1, out temp); // Black
+                Assert.AreEqual("", temp);
+
+                // Is
+                GameManager.PlacePiece(half, half + 3, out temp); // White
+                Assert.AreEqual("Tria", temp);
+            }
+
+            // Almost Tessera Right
+            {
+                GameManager.Initialize();
+                // Before
+                GameManager.PlacePiece(half, half, out temp); // White
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half, half + 1, out temp); // Black
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half + 1, half, out temp); // White
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half + 1, half + 1, out temp); // Black
+                Assert.AreEqual("", temp);
+
+                // Is
+                GameManager.PlacePiece(half + 3, half, out temp); // White
+                Assert.AreEqual("Tria", temp);
+            }
+
+            // Almost Tessera Diagonal
+            {
+                GameManager.Initialize();
+                // Before
+                GameManager.PlacePiece(half, half, out temp); // White
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half -1, half, out temp); // Black
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half + 1, half + 1, out temp); // White
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half -1, half -1, out temp); // Black
+                Assert.AreEqual("", temp);
+
+                // Is
+                GameManager.PlacePiece(half + 3, half + 3, out temp); // White
                 Assert.AreEqual("Tria", temp);
             }
         }
