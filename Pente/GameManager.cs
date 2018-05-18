@@ -37,6 +37,13 @@ namespace Pente
 			player2.color = TileState.BLACK;
         }
 
+        public static Player GetCurrentPlayer()
+        {
+            Player player = player1Turn ? player1 : player2;
+
+            return player;
+        }
+
         public static void PlacePiece(int x, int y, out string announcement)
         {
             if (board.GetState(x, y) == TileState.EMPTY)
@@ -50,7 +57,6 @@ namespace Pente
             {
                 announcement = "";
             }
-			Console.WriteLine(announcement);
         }
 
         private static string GetAnnouncement(int x, int y)
