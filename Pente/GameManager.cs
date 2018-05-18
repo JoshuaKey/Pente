@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Forms;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace Pente
 {
@@ -103,7 +108,9 @@ namespace Pente
         }
 		
         private static bool HasTria(int x, int y)
-        {
+		{
+			TileState thisState = board.GetState(x, y);
+			TileState otherState = thisState == TileState.WHITE ? TileState.BLACK : TileState.WHITE;
 			for (int dx = -1; dx <= 1; ++dx)
 			{
 				for (int dy = -1; dy <= 1; ++dy)
@@ -116,10 +123,15 @@ namespace Pente
 						{
 							try
 							{
-								if (board.GetState(x, y) == board.GetState(x + dx * j, y + dy * j)) ++numInRow;
+								TileState state = board.GetState(x + dx * j, y + dy * j);
+								if (state == thisState) ++numInRow;
+								if (state == otherState) --numInRow;
 							}
 							catch (IndexOutOfRangeException) { break; }
 						}
+						bool almostBracket = false;
+						try { if (board.GetState(x + dx * (i - 1), y + dy * (i - 1)) == otherState) almostBracket = true; } catch (IndexOutOfRangeException) { almostBracket = true; }
+						try { if (almostBracket && board.GetState(x + dx * (i + 4), y + dy * (i + 4)) == otherState) return false; } catch (IndexOutOfRangeException) { if (almostBracket) return false; }
 						if (numInRow == 3) return true;
 					}
 				}
@@ -128,7 +140,9 @@ namespace Pente
         }
 
         private static bool HasTessera(int x, int y)
-        {
+		{
+			TileState thisState = board.GetState(x, y);
+			TileState otherState = thisState == TileState.WHITE ? TileState.BLACK : TileState.WHITE;
 			for (int dx = -1; dx <= 1; ++dx)
 			{
 				for (int dy = -1; dy <= 1; ++dy)
@@ -141,10 +155,13 @@ namespace Pente
 						{
 							try
 							{
-								if (board.GetState(x, y) == board.GetState(x + dx * j, y + dy * j)) ++numInRow;
+								if (board.GetState(x + dx * j, y + dy * j) == thisState) ++numInRow;
 							}
 							catch (IndexOutOfRangeException) { break; }
 						}
+						bool almostBracket = false;
+						try	{ if (board.GetState(x + dx * (i - 1), y + dy * (i - 1)) == otherState) almostBracket = true;} catch (IndexOutOfRangeException) { almostBracket = true; }
+						try { if (almostBracket && board.GetState(x + dx * (i + 4), y + dy * (i + 4)) == otherState) return false; } catch (IndexOutOfRangeException) { if (almostBracket) return false; }
 						if (numInRow == 4) return true;
 					}
 				}
@@ -202,6 +219,45 @@ namespace Pente
 				}
 			}
 			return captures;
+		}
+
+		public static void Save()
+		{
+			SaveFileDialog sFileDiag = new SaveFileDialog();
+			sFileDiag.Title = "Save Game Location";
+			sFileDiag.Filter = "Pente Save|*.save";
+			sFileDiag.ShowDialog();
+			if (sFileDiag.FileName == "") return;
+
+			object[] objs = new object[]
+			{
+				player1,
+				player2,
+				board,
+				player1Turn
+			};
+			Stream fstream = sFileDiag.OpenFile();
+			BinaryFormatter format = new BinaryFormatter();
+			format.Serialize(fstream, objs);
+			fstream.Close();
+		}
+
+		public static void Load()
+		{
+			OpenFileDialog oFileDiag = new OpenFileDialog();
+			oFileDiag.Title = "Load Game";
+			oFileDiag.Filter = "Pente Save|*.save";
+			oFileDiag.ShowDialog();
+			if (oFileDiag.FileName == "") return;
+
+			Stream fstream = oFileDiag.OpenFile();
+			BinaryFormatter format = new BinaryFormatter();
+			object[] objs = (object[])format.Deserialize(fstream);
+			player1 = (Player)objs[0];
+			player2 = (Player)objs[1];
+			board = (Board)objs[2];
+			player1Turn = (bool)objs[3];
+			fstream.Close();
 		}
     }
 }
