@@ -28,6 +28,7 @@ namespace Pente
             AddColumns(width);
             AddRows(height);
             AddButtons(width, height);
+            tbl_announcement.Text = "";
         }
 
         private void AddColumns(int columns)
@@ -60,8 +61,6 @@ namespace Pente
                 {
                     Image image = new Image();
                     Piece p = board.tiles[i, j];
-                    //board.Place(TileState.BLACK, i, j);
-                    //p.TileState = TileState.BLACK;
                     image.DataContext = p;
 
                     Binding binding = new Binding("TileState");
@@ -83,7 +82,10 @@ namespace Pente
             int column = Grid.GetColumn(sender as Image);
             int row = Grid.GetRow(sender as Image);
             string announcement;
+            tbl_announcement.Text = $"Holy Cow! {GameManager.GetCurrentPlayer().name} got a ";
             GameManager.PlacePiece(column, row, out announcement);
+            tbl_announcement.Text = string.IsNullOrEmpty(announcement) ? "" : tbl_announcement.Text + announcement;
+            lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)
