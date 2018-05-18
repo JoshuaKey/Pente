@@ -31,7 +31,7 @@ namespace Pente
         {
             GameManager.Initialize((int)sld_boardSize.Value);
             SetPlayerNames();
-            GameWindow gw = new GameWindow(GameManager.size, GameManager.size);
+            GameWindow gw = new GameWindow();
             gw.Left = Left;
             gw.Top = 0;
             gw.Show();
