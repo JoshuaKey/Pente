@@ -13,13 +13,13 @@ namespace PenteTests {
         [TestMethod]
         public void Piece_CanFindImages() {
             Piece p = new Piece();
-            //Assert.AreNotEqual(null, p.BlackPieceImagePath);
-            //Assert.AreNotEqual(null, p.EmptyPieceImagePath);
-            //Assert.AreNotEqual(null, p.PiecePieceImagePath);
+            Assert.AreNotEqual(null, Piece.BlackPath);
+            Assert.AreNotEqual(null, Piece.EmptyPath);
+            Assert.AreNotEqual(null, Piece.WhitePath);
 
-            //Assert.AreEqual(true, File.Exists(p.BlackPieceImagePath));
-            //Assert.AreEqual(true, File.Exists(p.WhitePieceImagePath));
-            //Assert.AreEqual(true, File.Exists(p.EmptyPieceImagePath));
+            Assert.AreEqual(true, File.Exists(Piece.BlackPath));
+            Assert.AreEqual(true, File.Exists(Piece.WhitePath));
+            Assert.AreEqual(true, File.Exists(Piece.EmptyPath));
         }
 
         [TestMethod]
@@ -42,9 +42,10 @@ namespace PenteTests {
             BitmapImage blackImage = (BitmapImage)((Image)black).Source;
             BitmapImage emptyImage = (BitmapImage)((Image)empty).Source;
 
-            //Assert.AreEqual(p.WhitePieceImagePath, whiteImage.BaseUri);
-            //Assert.AreEqual(p.BlackPieceImagePath, blackImage.BaseUri);
-            //Assert.AreEqual(p.EmptyPieceImagePath, emptyImage.BaseUri);
+
+            Assert.AreEqual(Piece.WhitePath, whiteImage.BaseUri);
+            Assert.AreEqual(Piece.BlackPath, blackImage.BaseUri);
+            Assert.AreEqual(Piece.EmptyPath, emptyImage.BaseUri);
         }
 
         [TestMethod]
