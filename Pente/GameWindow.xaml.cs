@@ -21,36 +21,14 @@ namespace Pente
     {
         private Board board;
 
-        public GameWindow(int width, int height)
+        public GameWindow()
         {
             InitializeComponent();
             board = GameManager.board;
-            AddColumns(width);
-            AddRows(height);
-            AddButtons(width, height);
+			grd_tiles.Columns = board.Width;
+			grd_tiles.Rows = board.Height;
+            AddButtons(board.Width, board.Height);
             tbl_announcement.Text = "";
-        }
-
-        private void AddColumns(int columns)
-        {
-            grd_tiles.Columns = columns;
-            for (int i = 0; i < columns; ++i)
-            {
-                ColumnDefinition cd = new ColumnDefinition();
-                cd.Width = new GridLength(1, GridUnitType.Star);
-                //grd_tiles.ColumnDefinitions.Add(cd);
-            }
-        }
-
-        private void AddRows(int rows)
-        {
-            grd_tiles.Rows = rows;
-            for (int i = 0; i < rows; ++i)
-            {
-                RowDefinition rd = new RowDefinition();
-                rd.Height = new GridLength(1, GridUnitType.Star);
-                //grd_tiles.RowDefinitions.Add(rd);
-            }
         }
 
         private void AddButtons(int columns, int rows)
