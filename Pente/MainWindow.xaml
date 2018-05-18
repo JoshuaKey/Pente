@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pente"
         mc:Ignorable="d"
-        Title="Menu" Height="360" Width="535"
+        Title="Menu" Height="383.25" Width="564.25"
         ResizeMode="NoResize">
     <Grid Background="#FF98E3FF">
         <Button Content="Play" HorizontalAlignment="Center" Margin="210,160,210,132.5" VerticalAlignment="Center" Width="100" Click="Play_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
