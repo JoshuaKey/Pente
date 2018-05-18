@@ -53,7 +53,6 @@ namespace PenteTests {
             // What happens when we place on top of piece
         }
 
-        [ExpectedException(typeof(IndexOutOfRangeException))]
         [TestMethod]
         public void Board_OutOfIndex() {
             Board b = new Board(19, 19);

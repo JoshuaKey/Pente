@@ -34,18 +34,18 @@ namespace PenteTests {
             Assert.AreNotEqual(null, black);
             Assert.AreNotEqual(null, empty);
 
-            Assert.IsInstanceOfType(white, typeof(Image));
-            Assert.IsInstanceOfType(black, typeof(Image));
-            Assert.IsInstanceOfType(empty, typeof(Image));
+            Assert.IsInstanceOfType(white, typeof(BitmapImage));
+            Assert.IsInstanceOfType(black, typeof(BitmapImage));
+            Assert.IsInstanceOfType(empty, typeof(BitmapImage));
 
-            BitmapImage whiteImage = (BitmapImage)((Image)white).Source;
-            BitmapImage blackImage = (BitmapImage)((Image)black).Source;
-            BitmapImage emptyImage = (BitmapImage)((Image)empty).Source;
+            BitmapImage whiteImage = ((BitmapImage)white);
+            BitmapImage blackImage = ((BitmapImage)black);
+            BitmapImage emptyImage = ((BitmapImage)empty);
 
-
-            Assert.AreEqual(Piece.WhitePath, whiteImage.BaseUri);
-            Assert.AreEqual(Piece.BlackPath, blackImage.BaseUri);
-            Assert.AreEqual(Piece.EmptyPath, emptyImage.BaseUri);
+            
+            Assert.AreEqual(Path.GetFullPath(Piece.WhitePath), Path.GetFullPath(whiteImage.UriSource.LocalPath));
+            Assert.AreEqual(Path.GetFullPath(Piece.BlackPath), Path.GetFullPath(blackImage.UriSource.LocalPath));
+            Assert.AreEqual(Path.GetFullPath(Piece.EmptyPath), Path.GetFullPath(emptyImage.UriSource.LocalPath));
         }
 
         [TestMethod]
