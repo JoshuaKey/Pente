@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,7 @@ namespace Pente
     public partial class GameWindow : Window
     {
         private Board board;
+        private bool locked;
 
         public GameWindow()
         {
@@ -29,6 +31,7 @@ namespace Pente
 			grd_tiles.Rows = board.Height;
             AddButtons(board.Width, board.Height);
             tbl_announcement.Text = "";
+            locked = false;
         }
 
         private void AddButtons(int columns, int rows)
@@ -60,9 +63,75 @@ namespace Pente
             int column = Grid.GetColumn(sender as Image);
             int row = Grid.GetRow(sender as Image);
             string announcement;
-            GameManager.PlacePiece(column, row, out announcement);
-            tbl_announcement.Text = string.IsNullOrEmpty(announcement) ? "" : announcement;
+            string baseText = GameManager.GetCurrentPlayer().name;
+            bool placed = false;
+            announcement = "";
+            if (!locked) placed = GameManager.PlacePiece(column, row, out announcement);
+            if (GameManager.GetCurrentPlayer().isComputer) locked = true;
+            else locked = false;
+            string text = GetAnnouncmentText(announcement, baseText);
             lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
+            tbl_announcement.Text = text;
+            if (placed && GameManager.GetCurrentPlayer().isComputer)
+            {
+                new Thread(() =>
+                {
+                    Thread.CurrentThread.IsBackground = true;
+                    Thread.Sleep(2000);
+                    baseText = GameManager.GetCurrentPlayer().name;
+                    GameManager.MakeComputerMove(out announcement);
+                    text = GetAnnouncmentText(announcement, baseText);
+                    Dispatcher.Invoke(() =>
+                    {
+                        lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
+                        tbl_announcement.Text = text;
+                    });
+                    locked = false;
+                }).Start();
+            }
+        }
+
+        private string GetAnnouncmentText(string announcement, string baseText)
+        {
+            string text = baseText;
+            switch (announcement)
+            {
+                case "Capture":
+                    text += " captured enough pieces to win the game!";
+                    break;
+                case "Pente":
+                    text += " got five in a row to win the game!";
+                    break;
+                case "Tessera":
+                    text += " made a tessera!";
+                    break;
+                case "Tria":
+                    text += " made a tria!";
+                    break;
+                default:
+                    int cap;
+                    if (!string.IsNullOrEmpty(announcement))
+                    {
+                        int.TryParse(announcement[announcement.Length - 1] + "", out cap);
+                        if (cap > 0)
+                        {
+                            text += $" made {cap} capture";
+                            if (cap > 1) text += "s";
+                        }
+                        else
+                        {
+                            text = "";
+                        }
+                    }
+                    else
+                    {
+                        text = "";
+                    }
+
+                    break;
+            }
+
+            return text;
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)

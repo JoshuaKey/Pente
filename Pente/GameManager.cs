@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Threading;
 
 namespace Pente
 {
@@ -18,7 +19,8 @@ namespace Pente
         public static Board board;
         public static int size;
         public static bool player1Turn;
-        public static bool BoardLocked { get; private set; }
+        public static bool locked;
+        public static bool BoardLocked { get; set; }
 
         public static void Initialize(int boardSize)
         {
@@ -53,58 +55,91 @@ namespace Pente
             return player;
         }
 
-        public static void PlacePiece(int x, int y, out string announcement)
+        public static bool PlacePiece(int x, int y, out string announcement)
         {
-            if (!board.IsValid(x, y))
+            bool success = true;
+            if (board.IsValid(x, y))
             {
-                throw new IndexOutOfRangeException($"The coordinate {x},{y} is out of range");
-            }
-            if (board.GetState(x, y) == TileState.EMPTY && !BoardLocked)
-            {
-                TileState state = player1Turn ? player1.color : player2.color;
-                board.Place(state, x, y);
-				announcement = GetAnnouncement(x, y);
-                player1Turn = !player1Turn;
+                if (board.GetState(x, y) == TileState.EMPTY && !BoardLocked)
+                {
+                    TileState state = player1Turn ? player1.color : player2.color;
+                    board.Place(state, x, y);
+                    announcement = GetAnnouncement(x, y);
+                    if (announcement == "Pente" || announcement == "Capture")
+                    {
+                        success = false;
+                    }
+                    player1Turn = !player1Turn;
+                }
+                else
+                {
+                    success = false;
+                    announcement = "";
+                }
             }
             else
             {
+                success = false;
+                player1Turn = !player1Turn;
                 announcement = "";
             }
+
+            return success;
         }
 
         private static string GetAnnouncement(int x, int y)
         {
-            string announcement = GetCurrentPlayer().name;
+            string announcement = "";
 
-            if (!board.IsValid(x, y))
+            if (board.IsValid(x, y))
             {
-                throw new IndexOutOfRangeException($"The coordinate {x},{y} is out of range");
-            }
-            if (HasPente(x, y))
-            {
-                announcement += " has won the game!";
-                BoardLocked = true;
-            }
-            else if (HasTessera(x, y))
-			{
-				announcement += " got a Tessera!";
-			}
-			else if (HasTria(x, y))
-			{
-				announcement += " got a Tria!";
-			}
-            int captures = HasCaptures(x, y);
-            if (captures >= 1)
-            {
-                announcement += captures > 1 ?  $" made {captures} captures!" : $" made {captures} capture!";
+                int captures = HasCaptures(x, y);
+                GetCurrentPlayer().captures += captures;
+                if (GetCurrentPlayer().captures >= 5)
+                {
+                    announcement = "Capture";
+                    BoardLocked = true;
+                }
+                else if (HasPente(x, y))
+                {
+                    announcement = "Pente";
+                    BoardLocked = true;
+                }
+                else if (HasTessera(x, y))
+                {
+                    announcement = "Tessera";
+                }
+                else if (HasTria(x, y))
+                {
+                    announcement = "Tria";
+                }
+                else if (captures >= 1)
+                {
+                    announcement = "Capture" + captures;
+                }
             }
 
-            if (announcement == GetCurrentPlayer().name)
+            return announcement;
+        }
+
+        public static void MakeComputerMove(out string announcement)
+        {
+            if (!GetCurrentPlayer().isComputer)
             {
                 announcement = "";
+                return;
             }
+            
+            int x = -1;
+            int y = -1;
+            Random rand = new Random();
+            do
+            {
+                x = rand.Next(0, board.Width);
+                y = rand.Next(0, board.Height);
+            } while (!board.IsValid(x, y));
 
-			return announcement;
+            PlacePiece(x, y, out announcement);
         }
 		
         private static bool HasTria(int x, int y)
