@@ -16,26 +16,27 @@ namespace Pente
         public static Player player1;
         public static Player player2;
         public static Board board;
-        public static int size;
         public static bool player1Turn;
+		private static bool locked = false;
         public static bool BoardLocked { get; private set; }
 
         public static void Initialize(int boardSize)
         {
+			if (boardSize < 9 || boardSize > 39 || boardSize % 2 == 0) throw new ArgumentOutOfRangeException();
             player1 = new Player();
             player2 = new Player();
             player1.name = "Player 1";
             player2.name = "Player 2";
             player1.color = TileState.WHITE;
             player2.color = TileState.BLACK;
-            size = boardSize;
-            board = new Board(size, size);
+            board = new Board(boardSize, boardSize);
             player1Turn = true;
             BoardLocked = false;
         }
-
         public static void SetPlayerNames(string p1Name, string p2Name)
         {
+			Player p1 = player1;
+			Player p2 = player2;
             player1.name = string.IsNullOrEmpty(p1Name) ? "Player 1" : p1Name;
             player2.name = string.IsNullOrEmpty(p2Name) ? "Player 2" : p2Name;
             if (p2Name == "Computer")
@@ -45,15 +46,13 @@ namespace Pente
 			player1.color = TileState.WHITE;
 			player2.color = TileState.BLACK;
         }
-
         public static Player GetCurrentPlayer()
         {
             Player player = player1Turn ? player1 : player2;
 
             return player;
         }
-
-        public static void PlacePiece(int x, int y, out string announcement)
+		public static void PlacePiece(int x, int y, out string announcement)
         {
             if (!board.IsValid(x, y))
             {
@@ -71,7 +70,6 @@ namespace Pente
                 announcement = "";
             }
         }
-
         private static string GetAnnouncement(int x, int y)
         {
             string announcement = GetCurrentPlayer().name;
@@ -106,7 +104,6 @@ namespace Pente
 
 			return announcement;
         }
-		
         private static bool HasTria(int x, int y)
 		{
 			TileState thisState = board.GetState(x, y);
@@ -138,7 +135,6 @@ namespace Pente
 			}
 			return false;
         }
-
         private static bool HasTessera(int x, int y)
 		{
 			TileState thisState = board.GetState(x, y);
@@ -168,7 +164,6 @@ namespace Pente
 			}
 			return false;
         }
-
 		private static bool HasPente(int x, int y)
 		{
 			for (int dx = -1; dx <= 1; ++dx)
@@ -193,7 +188,6 @@ namespace Pente
 			}
 			return false;
 		}
-
 		private static int HasCaptures(int x, int y)
 		{
 			int captures = 0;
@@ -220,7 +214,6 @@ namespace Pente
 			}
 			return captures;
 		}
-
 		public static bool Save()
 		{
 			SaveFileDialog sFileDiag = new SaveFileDialog();
@@ -228,21 +221,9 @@ namespace Pente
 			sFileDiag.Filter = "Pente Save|*.save";
 			sFileDiag.ShowDialog();
 			if (sFileDiag.FileName == "") return false;
-
-			object[] objs = new object[]
-			{
-				player1,
-				player2,
-				board,
-				player1Turn
-			};
-			Stream fstream = sFileDiag.OpenFile();
-			BinaryFormatter format = new BinaryFormatter();
-			format.Serialize(fstream, objs);
-			fstream.Close();
+			Serialize(sFileDiag.FileName);
 			return true;
 		}
-
 		public static bool Load()
 		{
 			OpenFileDialog oFileDiag = new OpenFileDialog();
@@ -250,8 +231,26 @@ namespace Pente
 			oFileDiag.Filter = "Pente Save|*.save";
 			oFileDiag.ShowDialog();
 			if (oFileDiag.FileName == "") return false;
-
-			Stream fstream = oFileDiag.OpenFile();
+			Deserialize(oFileDiag.FileName);
+			return true;
+		}
+		public static void Serialize(string filepath)
+		{
+			Stream fstream = File.Open(filepath, FileMode.OpenOrCreate);
+			BinaryFormatter format = new BinaryFormatter();
+			object[] objs = new object[]
+			{
+				player1,
+				player2,
+				board,
+				player1Turn
+			};
+			format.Serialize(fstream, objs);
+			fstream.Close();
+		}
+		public static void Deserialize(string filepath)
+		{
+			Stream fstream = File.Open(filepath, FileMode.Open);
 			BinaryFormatter format = new BinaryFormatter();
 			object[] objs = (object[])format.Deserialize(fstream);
 			player1 = (Player)objs[0];
@@ -259,7 +258,6 @@ namespace Pente
 			board = (Board)objs[2];
 			player1Turn = (bool)objs[3];
 			fstream.Close();
-			return true;
 		}
     }
 }

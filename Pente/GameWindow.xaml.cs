@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Pente
 {
@@ -20,17 +21,26 @@ namespace Pente
     public partial class GameWindow : Window
     {
         private Board board;
-
-        public GameWindow()
-        {
-            InitializeComponent();
-            board = GameManager.board;
+		private DispatcherTimer timer { get; } = new DispatcherTimer();
+		private double currentTime = 0.0;
+		public GameWindow()
+		{
+			InitializeComponent();
+			board = GameManager.board;
 			grd_tiles.Columns = board.Width;
 			grd_tiles.Rows = board.Height;
-            AddButtons(board.Width, board.Height);
-            tbl_announcement.Text = "";
-        }
+			AddButtons(board.Width, board.Height);
+			tbl_announcement.Text = "";
+			lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
 
+			timer.Tick += Timer_Tick;
+			timer.Interval = new TimeSpan(0, 0, 1);
+			timer.Start();
+		}
+		private void Window_Close(object sender, EventArgs e)
+		{
+			timer.Stop();
+		}
         private void AddButtons(int columns, int rows)
         {
             for (int i = 0; i < columns; ++i)
@@ -63,6 +73,7 @@ namespace Pente
             GameManager.PlacePiece(column, row, out announcement);
             tbl_announcement.Text = string.IsNullOrEmpty(announcement) ? "" : announcement;
             lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
+			currentTime = 0.0;
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)
@@ -78,5 +89,23 @@ namespace Pente
             mc.Show();
             Close();
         }
+		private void Save_Click(object sender, RoutedEventArgs e)
+		{
+			timer.Stop();
+			GameManager.Save();
+			timer.Start();
+		}
+		private void Timer_Tick(object sender, EventArgs e)
+		{
+			currentTime += timer.Interval.TotalMilliseconds;
+			if (currentTime >= 20000.0)
+			{
+				currentTime = 0.0;
+				GameManager.player1Turn = !GameManager.player1Turn;
+				tbl_announcement.Text = "";
+				lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
+			}
+			lbl_timer.Content = (20.0 - currentTime / 1000).ToString();
+		}
     }
 }
