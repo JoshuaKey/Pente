@@ -1046,22 +1046,28 @@ namespace PenteTests {
             for(int i = 0; i < 9; i++) {
                 GameManager.PlacePiece(0, i, out temp);
                 Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Draw", temp);
                 GameManager.PlacePiece(3, i, out temp);
                 Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Draw", temp);
 
                 GameManager.PlacePiece(1, i, out temp);
                 Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Draw", temp);
                 GameManager.PlacePiece(4, i, out temp);
                 Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Draw", temp);
 
                 GameManager.PlacePiece(2, i, out temp);
                 Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Draw", temp);
                 GameManager.PlacePiece(5, i, out temp);
                 Assert.AreNotEqual("Win", temp);
 
-                if (temp == "Draw") {
-                    Assert.AreEqual(8, i);
-                    Assert.AreEqual(8, i);
+                if (i == 8) {
+                    Assert.AreEqual("Draw", temp);
+                } else {
+                    Assert.AreNotEqual("Draw", temp);
                 }
             }
         }
