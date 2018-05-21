@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pente"
         mc:Ignorable="d"
-        Title="GameWindow" Height="580" Width="800"
+        Title="Pente" Height="580" Width="800"
         ResizeMode="NoResize">
     <Grid>
         <Grid.Background>
