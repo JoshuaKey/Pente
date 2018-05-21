@@ -64,6 +64,8 @@ namespace Pente
 
         private void SetPlayerNames()
         {
+			Player p1 = GameManager.player1;
+			Player p2 = GameManager.player2;
             GameManager.SetPlayerNames(tbx_p1Name.Text, tbx_p2Name.Text);
         }
     }
