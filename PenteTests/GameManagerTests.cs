@@ -767,34 +767,34 @@ namespace PenteTests {
                 GameManager.Initialize(19);
 
                 GameManager.PlacePiece(half, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half, half + 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 4, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 4, half + 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half + 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 2, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 2, half + 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 5, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 3, half + 1, out temp);
-                Assert.AreEqual("Win", temp);
+                Assert.AreEqual("Pente", temp);
             }
 
             // Vertical
@@ -802,34 +802,34 @@ namespace PenteTests {
                 GameManager.Initialize(19);
 
                 GameManager.PlacePiece(half, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half, half + 4, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half + 4, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half, half + 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half + 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half, half + 2, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half + 2, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half, half + 5, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half + 3, out temp);
-                Assert.AreEqual("Win", temp);
+                Assert.AreEqual("Pente", temp);
             }
 
             // Diagonal
@@ -837,34 +837,34 @@ namespace PenteTests {
                 GameManager.Initialize(19);
 
                 GameManager.PlacePiece(half, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half + 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half - 5, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 2, half + 2, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half - 3, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 3, half + 3, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half - 2, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 4, half + 4, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half - 1, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 5, half + 5, out temp);
-                Assert.AreEqual("Win", temp);
+                Assert.AreEqual("Pente", temp);
             }
         }
 
@@ -882,31 +882,31 @@ namespace PenteTests {
                 GameManager.Initialize(19);
 
                 GameManager.PlacePiece(half, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half, half + 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 4, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 4, half + 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half + 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 2, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 2, half + 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 3, half, out temp);
-                Assert.AreEqual("Win", temp);
+                Assert.AreEqual("Pente", temp);
             }
 
             // Vertical
@@ -914,31 +914,31 @@ namespace PenteTests {
                 GameManager.Initialize(19);
 
                 GameManager.PlacePiece(half, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half, half + 4, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half + 4, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half, half + 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half + 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half, half + 2, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half + 2, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half, half + 3, out temp);
-                Assert.AreEqual("Win", temp);
+                Assert.AreEqual("Pente", temp);
             }
 
             // Diagonal
@@ -946,31 +946,31 @@ namespace PenteTests {
                 GameManager.Initialize(19);
 
                 GameManager.PlacePiece(half, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half - 1, half, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 4, half + 4, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half - 1, half - 4, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half + 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half - 1, half - 1, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 2, half + 2, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half - 1, half - 2, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 3, half + 3, out temp);
-                Assert.AreEqual("Win", temp);
+                Assert.AreEqual("Pente", temp);
             }
         }
 
@@ -986,19 +986,19 @@ namespace PenteTests {
             GameManager.player1.captures = 4;
 
             GameManager.PlacePiece(half, half, out temp);
-            Assert.AreNotEqual("Win", temp);
+            Assert.AreNotEqual("Capture", temp);
 
             GameManager.PlacePiece(half + 1, half, out temp);
-            Assert.AreNotEqual("Win", temp);
+            Assert.AreNotEqual("Capture", temp);
 
             GameManager.PlacePiece(half + 4, half, out temp);
-            Assert.AreNotEqual("Win", temp);
+            Assert.AreNotEqual("Capture", temp);
 
             GameManager.PlacePiece(half + 2, half, out temp);
-            Assert.AreNotEqual("Win", temp);
+            Assert.AreNotEqual("Capture", temp);
 
             GameManager.PlacePiece(half + 3, half, out temp);
-            Assert.AreEqual("Win", temp);
+            Assert.AreEqual("Capture", temp);
         }
 
         [TestMethod]
@@ -1013,22 +1013,22 @@ namespace PenteTests {
             GameManager.player2.captures = 4;
 
             GameManager.PlacePiece(half, half, out temp);
-            Assert.AreNotEqual("Win", temp);
+            Assert.AreNotEqual("Capture", temp);
 
             GameManager.PlacePiece(half + 1, half , out temp);
-            Assert.AreNotEqual("Win", temp);
+            Assert.AreNotEqual("Capture", temp);
 
             GameManager.PlacePiece(half - 3, half, out temp);
-            Assert.AreNotEqual("Win", temp);
+            Assert.AreNotEqual("Capture", temp);
 
             GameManager.PlacePiece(half + 2, half, out temp);
-            Assert.AreNotEqual("Win", temp);
+            Assert.AreNotEqual("Capture", temp);
 
             GameManager.PlacePiece(half - 1, half, out temp);
-            Assert.AreNotEqual("Win", temp);
+            Assert.AreNotEqual("Capture", temp);
 
             GameManager.PlacePiece(half - 2, half, out temp);
-            Assert.AreEqual("Win", temp);
+            Assert.AreEqual("Capture", temp);
         }
 
         [TestMethod]
@@ -1041,23 +1041,23 @@ namespace PenteTests {
             int half = GameManager.board.Width / 2;
 
             GameManager.PlacePiece(half, half, out temp);
-            Assert.AreNotEqual("Win", temp);
+            Assert.AreNotEqual("Pente", temp);
  
             for(int i = 0; i < 9; i++) {
                 GameManager.PlacePiece(0, i, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
                 GameManager.PlacePiece(3, i, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(1, i, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
                 GameManager.PlacePiece(4, i, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(2, i, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
                 GameManager.PlacePiece(5, i, out temp);
-                Assert.AreNotEqual("Win", temp);
+                Assert.AreNotEqual("Pente", temp);
 
                 if (temp == "Draw") {
                     Assert.AreEqual(8, i);
