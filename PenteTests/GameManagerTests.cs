@@ -1266,6 +1266,36 @@ namespace PenteTests {
                 Assert.AreEqual("Tria", temp);
             }
 
+            // Almost Tessera Right
+            {
+                GameManager.Initialize(19);
+                // Before
+                GameManager.PlacePiece(half, half, out temp); // White
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half, half + 1, out temp); // Black
+                Assert.AreEqual("", temp);
+
+                // Random Second Turn
+                {
+                    GameManager.PlacePiece(half, half + 5, out temp);
+                    Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half + 5));
+
+                    GameManager.PlacePiece(half, half + 6, out temp);
+                    Assert.AreEqual(TileState.WHITE, GameManager.board.GetState(half, half + 6));
+                }
+
+                GameManager.PlacePiece(half - 1, half, out temp); // White
+                Assert.AreEqual("", temp);
+
+                GameManager.PlacePiece(half - 1, half + 1, out temp); // Black
+                Assert.AreEqual("", temp);
+
+                // Is
+                GameManager.PlacePiece(half - 3, half, out temp); // White
+                Assert.AreEqual("Tria", temp);
+            }
+
             // Almost Tessera Diagonal
             {
                 GameManager.Initialize(19);
@@ -1765,7 +1795,7 @@ namespace PenteTests {
 
         [TestMethod]
         public void GameManager_CanLoad() {
-            GameManager.Deserialize("CanLoad.sav");
+            GameManager.Deserialize("CanSave.sav");
         }
 
         [TestMethod]
