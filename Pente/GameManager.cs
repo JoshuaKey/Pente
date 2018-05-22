@@ -17,8 +17,8 @@ namespace Pente
         public static Player player1;
         public static Player player2;
         public static Board board;
+        private static int turnCount;
         public static bool player1Turn;
-		private static bool locked = false;
         public static bool BoardLocked { get; private set; }
 
         public static void Initialize(int boardSize)
@@ -31,7 +31,9 @@ namespace Pente
             player1.color = TileState.WHITE;
             player2.color = TileState.BLACK;
             board = new Board(boardSize, boardSize);
-            player1Turn = true;
+            board.Place(TileState.BLACK, board.Width / 2, board.Height / 2);
+            turnCount = 2;
+            player1Turn = false;
             BoardLocked = false;
         }
         public static void SetPlayerNames(string p1Name, string p2Name)
@@ -44,8 +46,8 @@ namespace Pente
             {
                 player2.isComputer = true;
             }
-			player1.color = TileState.WHITE;
-			player2.color = TileState.BLACK;
+			player1.color = TileState.BLACK;
+			player2.color = TileState.WHITE;
         }
         public static Player GetCurrentPlayer()
         {
@@ -56,13 +58,25 @@ namespace Pente
         public static bool PlacePiece(int x, int y, out string announcement)
         {
             bool success = true;
+            announcement = "";
+            if (turnCount == 3 && !IsValidSecondMove(x, y))
+            {
+                announcement = "Second";
+                return false;
+            }
             if (board.IsValid(x, y))
             {
+                if (board.IsFull())
+                {
+                    BoardLocked = true;
+                    return false;
+                }
                 if (board.GetState(x, y) == TileState.EMPTY && !BoardLocked)
                 {
                     TileState state = player1Turn ? player1.color : player2.color;
                     board.Place(state, x, y);
                     announcement = GetAnnouncement(x, y);
+                    turnCount++;
                     if (announcement == "Pente" || announcement == "Capture")
                     {
                         success = false;
@@ -84,6 +98,22 @@ namespace Pente
 
             return success;
         }
+
+        private static bool IsValidSecondMove(int x, int y)
+        {
+            bool valid = false;
+
+            int center = board.Width / 2;
+            int xDist = Math.Abs(center - x);
+            int yDist = Math.Abs(center - y);
+            if (xDist >= 3 || yDist >= 3)
+            {
+                valid = true;
+            }
+
+            return valid;
+        }
+
         private static string GetAnnouncement(int x, int y)
         {
             string announcement = "";
@@ -277,7 +307,9 @@ namespace Pente
 				player1,
 				player2,
 				board,
-				player1Turn
+				player1Turn,
+                BoardLocked,
+                turnCount
 			};
 			format.Serialize(fstream, objs);
 			fstream.Close();
@@ -291,6 +323,8 @@ namespace Pente
 			player2 = (Player)objs[1];
 			board = (Board)objs[2];
 			player1Turn = (bool)objs[3];
+            BoardLocked = (bool)objs[4];
+            turnCount = (int)objs[5];
 			fstream.Close();
 		}
     }

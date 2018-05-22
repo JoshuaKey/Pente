@@ -8,34 +8,36 @@
         Title="GameWindow" Height="580" Width="800"
         ResizeMode="NoResize"
 		Closed="Window_Close">
-	<Grid>
-		<Grid.Background>
-			<LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
-				<GradientStop Color="#FF43A5DB" Offset="0"/>
-				<GradientStop Color="#FF4EAED3" Offset="1"/>
-			</LinearGradientBrush>
-		</Grid.Background>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="2*"/>
-			<ColumnDefinition/>
-		</Grid.ColumnDefinitions>
-		<UniformGrid x:Name="grd_tiles" Width="520" HorizontalAlignment="Center" VerticalAlignment="Center" Height="520" Margin="0"/>
-		<Canvas Grid.Column="1">
-			<Canvas.Background>
-				<LinearGradientBrush EndPoint="1,0" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
-					<GradientStop Color="#FF198BCC" Offset="0"/>
-					<GradientStop Color="#FF0066A0" Offset="1"/>
-				</LinearGradientBrush>
-			</Canvas.Background>
-			<Label FontFamily="Cooper Black" FontSize="36" x:Name="lbl_playerTurn" Content="Player 1's" Canvas.Left="39" Canvas.Top="10"/>
-			<Label FontFamily="Cooper Black" FontSize="36" Content="Turn" Canvas.Left="75" Canvas.Top="61"/>
-			<Label Content="Remaining Time: " Canvas.Left="61" Canvas.Top="113"/>
-			<Label Content="20" x:Name="lbl_timer" Canvas.Left="167" Canvas.Top="113"/>
-			<TextBlock FontFamily="Cooper Black" FontSize="30" TextWrapping="Wrap" Width="200" Foreground="#FFFFDC00" x:Name="tbl_announcement" Text="Player 1 got a tessera!" Canvas.Left="39" Canvas.Top="148"/>
-			<Button Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" FontSize="30" Click="Save_Click" Height="51" Width="100" Content="Save" Canvas.Left="89" Canvas.Top="369"/>
-			<Button Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" FontSize="30" Click="Menu_Click" Height="51" Width="203" Content="Main Menu" Canvas.Left="39" Canvas.Top="425"/>
-			<Button Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" FontSize="30" Click="Quit_Click" Height="51" Width="100" Content="Quit" Canvas.Left="89" Canvas.Top="481"/>
-		</Canvas>
-		<Rectangle Grid.Column="1" Fill="#FF878787" HorizontalAlignment="Left" Height="572" Margin="0.5,0,0,-0.5" VerticalAlignment="Top" Width="15"/>
-	</Grid>
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+                <GradientStop Color="#FF43A5DB" Offset="0"/>
+                <GradientStop Color="#FF4EAED3" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <UniformGrid x:Name="grd_tiles" Width="520" HorizontalAlignment="Center" VerticalAlignment="Center" Height="520" Margin="0"/>
+        <Canvas Grid.Column="1">
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="1,0" MappingMode="RelativeToBoundingBox" StartPoint="0,0">
+                    <GradientStop Color="#FF198BCC" Offset="0"/>
+                    <GradientStop Color="#FF0066A0" Offset="1"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
+            <Label FontFamily="Cooper Black" FontSize="36" x:Name="lbl_playerTurn" Content="Player 1's" Canvas.Left="39" Canvas.Top="10"/>
+            <Label FontFamily="Cooper Black" FontSize="36" Content="Turn" Canvas.Left="75" Canvas.Top="61"/>
+            <Label Content="Remaining Time: " Canvas.Left="25" Canvas.Top="151" FontFamily="Cooper Black" FontSize="20" Foreground="#FF00CBFF"/>
+            <Label Content="20" x:Name="lbl_timer" Canvas.Left="208" Canvas.Top="151" FontFamily="Cooper Black" FontSize="20" Foreground="#FF00CBFF"/>
+            <TextBlock FontFamily="Cooper Black" FontSize="30" TextWrapping="Wrap" Width="200" Foreground="#FFFFDC00" x:Name="tbl_announcement" Text="You must place in center of board" Canvas.Left="39" Canvas.Top="198"/>
+            <Button Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" FontSize="30" Click="Save_Click" Height="51" Width="100" Content="Save" Canvas.Left="89" Canvas.Top="369"/>
+            <Button Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" FontSize="30" Click="Menu_Click" Height="51" Width="203" Content="Main Menu" Canvas.Left="39" Canvas.Top="425"/>
+            <Button Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" FontSize="30" Click="Quit_Click" Height="51" Width="100" Content="Quit" Canvas.Left="89" Canvas.Top="481"/>
+            <Label Content="Captures:" Canvas.Left="63" Canvas.Top="115" FontFamily="Cooper Black" FontSize="20" Foreground="#FF00CBFF"/>
+            <Label x:Name="lbl_captures" Content="0" Canvas.Left="171" Canvas.Top="115" FontFamily="Cooper Black" FontSize="20" Foreground="#FF00CBFF"/>
+        </Canvas>
+        <Rectangle Grid.Column="1" Fill="#FF878787" HorizontalAlignment="Left" Height="572" Margin="0.5,0,0,-0.5" VerticalAlignment="Top" Width="15"/>
+    </Grid>
 </Window>
