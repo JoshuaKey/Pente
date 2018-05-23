@@ -84,12 +84,13 @@ namespace Pente
             {
                 timer.Stop();
             }
-            else
+            else if (placed)
             {
                 timer.Start();
+                currentTime = 0.0f;
             }
             lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
-            tbl_announcement.Text = text;
+            if (placed || text != "") tbl_announcement.Text = text;
             lbl_captures.Content = GameManager.GetCurrentPlayer().captures;
             if (placed && GameManager.GetCurrentPlayer().isComputer)
             {
@@ -152,8 +153,7 @@ namespace Pente
 
                     break;
             }
-
-			currentTime = 0.0;
+            
             return text;
         }
 
@@ -181,11 +181,16 @@ namespace Pente
 			currentTime += timer.Interval.TotalMilliseconds;
 			if (currentTime >= 20000.0)
 			{
-				currentTime = 0.0;
-				GameManager.player1Turn = !GameManager.player1Turn;
-				tbl_announcement.Text = "";
-				lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
-                // TODO: Show dialog and resume timer when clicked
+                timer.Stop();
+                TimerTurnSwitch tts = new TimerTurnSwitch(GameManager.GetCurrentPlayer().name + ", you ran out of time and the turn switched.");
+                tts.Top = Top + Height / 2 - tts.Height / 2;
+                tts.Left = Left + Width / 2 - tts.Width / 2;
+                tts.ShowDialog();
+                currentTime = 0.0;
+                GameManager.SwitchPlayerTurn();
+                tbl_announcement.Text = "";
+                lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
+                timer.Start();
             }
 			lbl_timer.Content = (20.0 - currentTime / 1000).ToString();
 		}

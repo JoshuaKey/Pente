@@ -28,8 +28,8 @@ namespace Pente
             player2 = new Player();
             player1.name = "Player 1";
             player2.name = "Player 2";
-            player1.color = TileState.WHITE;
-            player2.color = TileState.BLACK;
+            player1.color = TileState.BLACK;
+            player2.color = TileState.WHITE;
             board = new Board(boardSize, boardSize);
             board.Place(TileState.BLACK, board.Width / 2, board.Height / 2);
             turnCount = 2;
@@ -49,17 +49,25 @@ namespace Pente
 			player1.color = TileState.BLACK;
 			player2.color = TileState.WHITE;
         }
+
         public static Player GetCurrentPlayer()
         {
             Player player = player1Turn ? player1 : player2;
 
             return player;
         }
+
+        public static void SwitchPlayerTurn()
+        {
+            player1Turn = !player1Turn;
+            turnCount++;
+        }
+
         public static bool PlacePiece(int x, int y, out string announcement)
         {
             bool success = true;
             announcement = "";
-            if (turnCount == 3 && !IsValidSecondMove(x, y))
+            if ((turnCount == 3 && !IsValidSecondMove(x, y)) || (GetCurrentPlayer().turnCount == 0 && player1Turn))
             {
                 announcement = "Second";
                 return false;
@@ -76,12 +84,12 @@ namespace Pente
                     TileState state = player1Turn ? player1.color : player2.color;
                     board.Place(state, x, y);
                     announcement = GetAnnouncement(x, y);
-                    turnCount++;
                     if (announcement == "Pente" || announcement == "Capture")
                     {
                         success = false;
                     }
-                    player1Turn = !player1Turn;
+                    GetCurrentPlayer().turnCount++;
+                    SwitchPlayerTurn();
                 }
                 else
                 {
