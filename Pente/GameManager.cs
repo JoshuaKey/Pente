@@ -118,6 +118,13 @@ namespace Pente
             return valid;
         }
 
+        /// <summary>
+        /// Checks most recent placement to see if there is a Tria, Tessera, or even how many captures there are. 
+        /// Using that information, we can update the UI with helpful information for the user.
+        /// </summary>
+        /// <param name="x">The x coordinate for the most recent placement</param>
+        /// <param name="y">The y coordinate for the most recent placement</param>
+        /// <returns></returns>
         private static string GetAnnouncementFromPlacement(int x, int y)
         {
             string announcement = "";
@@ -155,9 +162,9 @@ namespace Pente
 
         public static void MakeComputerMove(out string announcement)
         {
+            announcement = "";
             if (!GetCurrentPlayer().isComputer)
             {
-                announcement = "";
                 return;
             }
             
@@ -168,9 +175,7 @@ namespace Pente
             {
                 x = rand.Next(0, board.Width);
                 y = rand.Next(0, board.Height);
-            } while (!board.IsValid(x, y));
-
-            PlacePiece(x, y, out announcement);
+            } while (!board.IsValid(x, y) || !PlacePiece(x, y, out announcement));
         }
         private static bool HasTria(int x, int y)
 		{

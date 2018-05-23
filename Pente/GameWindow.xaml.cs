@@ -129,8 +129,7 @@ namespace Pente
                 string text = GetAnnouncmentText(announcement, baseText);
                 Dispatcher.Invoke(() =>
                 {
-                    lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
-                    tbl_announcement.Text = text;
+                    UpdateUI(text, true);
                 });
                 locked = false;
             }).Start();
