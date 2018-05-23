@@ -80,7 +80,7 @@ namespace Pente
                     TileState state = player1Turn ? player1.color : player2.color;
                     board.Place(state, x, y);
                     announcement = GetAnnouncement(x, y);
-                    if (announcement == "Pente" || announcement == "Capture")
+                    if (announcement == "Pente" || announcement == "Capture" || announcement == "Draw")
                     {
                         success = false;
                     }
@@ -134,6 +134,11 @@ namespace Pente
 				else if (HasPente(x, y))
 				{
 					announcement = "Pente";
+					BoardLocked = true;
+				}
+				else if (board.IsFull())
+				{
+					announcement = "Draw";
 					BoardLocked = true;
 				}
 				else if (HasTessera(x, y))

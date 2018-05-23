@@ -7,18 +7,18 @@
         mc:Ignorable="d"
         Title="Pente" Height="383.25" Width="564.25"
         ResizeMode="NoResize">
-    <Grid Background="#FF98E3FF">
-        <Button Content="Play" HorizontalAlignment="Center" Margin="210,160,210,132.5" VerticalAlignment="Center" Width="100" Click="Play_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
-        <Label Content="Pente" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" FontFamily="Cooper Black" FontSize="48">
-            <Label.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="0"/>
-                    <GradientStop Color="#FF848484" Offset="1"/>
-                </LinearGradientBrush>
-            </Label.Foreground>
-        </Label>
-        <Button Content="Quit" HorizontalAlignment="Center" Margin="214,278,215,23.5" VerticalAlignment="Center" Width="100" Click="Quit_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
-        <Button Content="Instructions" HorizontalAlignment="Center" Margin="188,240,191,61.5" VerticalAlignment="Center" Width="150" Click="Rules_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
-        <Button Content="Load" HorizontalAlignment="Center" Margin="214,202,215,99.5" VerticalAlignment="Center" Width="100" Click="Load_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
-    </Grid>
+	<Grid Background="#FF98E3FF">
+		<Button Content="Play" HorizontalAlignment="Center" Margin="210,160,210,132.5" VerticalAlignment="Center" Width="100" Click="Play_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
+		<Label Content="Pente" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" FontFamily="Cooper Black" FontSize="48">
+			<Label.Foreground>
+				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+					<GradientStop Color="Black" Offset="0"/>
+					<GradientStop Color="#FF848484" Offset="1"/>
+				</LinearGradientBrush>
+			</Label.Foreground>
+		</Label>
+		<Button Content="Quit" HorizontalAlignment="Center" Margin="214,278,215,23.5" VerticalAlignment="Center" Width="100" Click="Quit_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
+		<Button Content="Instructions" HorizontalAlignment="Center" Margin="188,240,191,61.5" VerticalAlignment="Center" Width="150" Click="Rules_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
+		<Button Content="Load" HorizontalAlignment="Center" Margin="214,202,215,99.5" VerticalAlignment="Center" Width="100" Click="Load_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
+	</Grid>
 </Window>

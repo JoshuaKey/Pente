@@ -131,6 +131,9 @@ namespace Pente
                 case "Second":
                     text += ", it must be at least 3 away";
                     break;
+				case "Draw":
+					text += " drew the game.";
+					break;
                 default:
                     int cap;
                     if (!string.IsNullOrEmpty(announcement))
