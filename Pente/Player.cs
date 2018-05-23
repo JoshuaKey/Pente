@@ -13,5 +13,6 @@ namespace Pente
         public TileState color;
         public bool isComputer;
         public int captures;
+        public int turnCount;
     }
 }
