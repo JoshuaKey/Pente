@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Pente
@@ -17,7 +18,7 @@ namespace Pente
     /// <summary>
     /// Interaction logic for ModeSelction.xaml
     /// </summary>
-    public partial class ModeSelction : Window
+    public partial class ModeSelction : Page
     {
         private string p2Name;
 
@@ -31,20 +32,24 @@ namespace Pente
         {
             GameManager.Initialize((int)sld_boardSize.Value);
             SetPlayerNames();
-            GameWindow gw = new GameWindow();
-            gw.Left = Left;
-            gw.Top = 0;
-            gw.Show();
-            Close();
+            Page p = new GameWindow();
+            NavigationService.Navigate(p);
+            //GameWindow gw = new GameWindow();
+            //gw.Left = Left;
+            //gw.Top = 0;
+            //gw.Show();
+            //Close();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            MenuController mc = new MenuController();
-            mc.Left = Left;
-            mc.Top = Top;
-            mc.Show();
-            Close();
+            Page p = new MenuController();
+            NavigationService.Navigate(p);
+            //MenuController mc = new MenuController();
+            //mc.Left = Left;
+            //mc.Top = Top;
+            //mc.Show();
+            //Close();
         }
 
         private void Computer_Clicked(object sender, RoutedEventArgs e)

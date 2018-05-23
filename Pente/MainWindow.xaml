@@ -1,12 +1,11 @@
-﻿<Window x:Class="Pente.MenuController"
+﻿<Page x:Class="Pente.MenuController"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pente"
         mc:Ignorable="d"
-        Title="Pente" Height="383.25" Width="564.25"
-        ResizeMode="NoResize">
+        Title="Pente" Height="383.25" Width="564.25">
 	<Grid Background="#FF98E3FF">
 		<Button Content="Play" HorizontalAlignment="Center" Margin="210,160,210,132.5" VerticalAlignment="Center" Width="100" Click="Play_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
 		<Label Content="Pente" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" FontFamily="Cooper Black" FontSize="48">
@@ -19,6 +18,6 @@
 		</Label>
 		<Button Content="Quit" HorizontalAlignment="Center" Margin="214,278,215,23.5" VerticalAlignment="Center" Width="100" Click="Quit_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
 		<Button Content="Instructions" HorizontalAlignment="Center" Margin="188,240,191,61.5" VerticalAlignment="Center" Width="150" Click="Rules_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
-		<Button Content="Load" HorizontalAlignment="Center" Margin="214,202,215,99.5" VerticalAlignment="Center" Width="100" Click="Load_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
-	</Grid>
-</Window>
+        <Button Content="Load" HorizontalAlignment="Center" Margin="214,202,215,99.5" VerticalAlignment="Center" Width="100" Click="Load_Click" Background="White" Foreground="Black" BorderBrush="Black" FontFamily="Cooper Black" Height="30" FontSize="20"/>
+    </Grid>
+</Page>

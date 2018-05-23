@@ -18,7 +18,7 @@ namespace Pente {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MenuController : Window {
+    public partial class MenuController : Page {
         public MenuController() {
             InitializeComponent();
             
@@ -26,11 +26,13 @@ namespace Pente {
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            ModeSelction ms = new ModeSelction();
-            ms.Left = Left;
-            ms.Top = Top;
-            ms.Show();
-            Close();
+            Page p = new ModeSelction();
+            NavigationService.Navigate(p);
+            //ModeSelction ms = new ModeSelction();
+            //ms.Left = Left;
+            //ms.Top = Top;
+            //ms.Show();
+            //Close();
         }
 
         private void Rules_Click(object sender, RoutedEventArgs e)
@@ -48,11 +50,13 @@ namespace Pente {
             bool success = GameManager.Load();
             if (success)
             {
-                GameWindow gw = new GameWindow();
-                gw.Show();
-                gw.Top = 0;
-                gw.Left = Left;
-                Close();
+                Page p = new GameWindow();
+                NavigationService.Navigate(p);
+                //GameWindow gw = new GameWindow();
+                //gw.Show();
+                //gw.Top = 0;
+                //gw.Left = Left;
+                //Close();
             }
         }
     }
