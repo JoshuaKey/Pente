@@ -71,5 +71,10 @@ namespace Pente
 			for (int i = 0; i < tiles.GetLength(0); ++i) for (int j = 0; j < tiles.GetLength(1); ++j) if (tiles[i, j].TileState == TileState.EMPTY) return false;
 			return true;
 		}
+
+		public bool IsInRange(int x, int y)
+		{
+			return x < tiles.GetLength(0) && x > -1 && y < tiles.GetLength(1) && y > -1;
+		}
     }
 }
