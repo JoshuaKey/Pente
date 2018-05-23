@@ -140,7 +140,7 @@ namespace PenteTests {
             Assert.AreEqual("Computer", GameManager.player2.name);
             Assert.AreEqual(false, GameManager.player2.isComputer);
 
-            //GameManager.SetPlayerNames("Josh", "Computer", true);
+            GameManager.SetPlayerNames("Josh", "Computer", true);
             Assert.AreEqual("Josh", GameManager.player1.name);
             Assert.AreEqual("Computer", GameManager.player2.name);
             Assert.AreEqual(true, GameManager.player2.isComputer);
@@ -150,7 +150,7 @@ namespace PenteTests {
         public void GameManager_Computer() {
             GameManager.Initialize(19);
 
-            GameManager.SetPlayerNames("Josh", "Computer");
+            GameManager.SetPlayerNames("Josh", "Computer", true);
             Assert.AreEqual("Josh", GameManager.player1.name);
             Assert.AreEqual("Computer", GameManager.player2.name);
             Assert.AreEqual(true, GameManager.player2.isComputer);
@@ -1049,23 +1049,28 @@ namespace PenteTests {
             string temp;
             int width = GameManager.board.Width;
             int half = GameManager.board.Width / 2;
+            int start = 0;
 
 
             //Assert.AreNotEqual("Pente", temp);
 
-            for (int i = 0; i < 2; i++) {
-                int start = 0;
-                for(int y = 0; y < 4; y++) {
-                    GameManager.PlacePiece(i * 2, start+y, out temp); // White
+
+            // Top 8 rows
+            for (int i = 0; i < 4; i++) {
+                start = 0;
+                for (int y = 0; y < 4; y++) {
+                    GameManager.PlacePiece(i * 2, start + y, out temp); // White
                     Assert.AreNotEqual("Draw", temp);
                     Assert.AreNotEqual("Pente", temp);
 
-                    GameManager.PlacePiece(i * 2 + 1, start+y, out temp); // Black
+                    GameManager.PlacePiece(i * 2 + 1, start + y, out temp); // Black
                     Assert.AreNotEqual("Draw", temp);
                     Assert.AreNotEqual("Pente", temp);
                 }
+            }
 
-
+            // Bottom 8 rows
+            for (int i = 0; i < 4; i++) {
                 start = 5;
                 for (int y = 0; y < 4; y++) {
                     GameManager.PlacePiece(i * 2, start + y, out temp); // White
@@ -1076,71 +1081,65 @@ namespace PenteTests {
                     Assert.AreNotEqual("Draw", temp);
                     Assert.AreNotEqual("Pente", temp);
                 }
-
-                GameManager.PlacePiece(i * 2 + 1, 4, out temp); // White 
-                Assert.AreNotEqual("Draw", temp);
-                Assert.AreNotEqual("Pente", temp);
-                GameManager.PlacePiece(i * 2, 4, out temp); // Black
-                Assert.AreNotEqual("Draw", temp);
-                Assert.AreNotEqual("Pente", temp);
             }
 
-            for (int i = 0; i < 2; i++) {
-                int start = 0;
-                for (int y = 0; y < 4; y++) {
-                    GameManager.PlacePiece(width - 1 - (i * 2), start + y, out temp); // White
-                    Assert.AreNotEqual("Draw", temp);
-                    Assert.AreNotEqual("Pente", temp);
-
-                    GameManager.PlacePiece(width - 1 - (i * 2 + 1), start + y, out temp); // Black
-                    Assert.AreNotEqual("Draw", temp);
-                    Assert.AreNotEqual("Pente", temp);
-                }
-
-
-                start = 5;
-                for (int y = 0; y < 4; y++) {
-                    GameManager.PlacePiece(width - 1 - (i * 2), start + y, out temp); // White
-                    Assert.AreNotEqual("Draw", temp);
-                    Assert.AreNotEqual("Pente", temp);
-
-                    GameManager.PlacePiece(width - 1 - (i * 2 + 1), start + y, out temp); // Black
-                    Assert.AreNotEqual("Draw", temp);
-                    Assert.AreNotEqual("Pente", temp);
-                }
-
-                GameManager.PlacePiece(width - 1 - (i * 2 + 1), 4, out temp); // White 
-                Assert.AreNotEqual("Draw", temp);
-                Assert.AreNotEqual("Pente", temp);
-                GameManager.PlacePiece(width - 1 - (i * 2), 4, out temp); // Black
-                Assert.AreNotEqual("Draw", temp);
-                Assert.AreNotEqual("Pente", temp);
-            }
-
-            for (int y = 0; y < 2; y++) {
-                GameManager.PlacePiece(half, y * 2, out temp); // White
-                Assert.AreNotEqual("Draw", temp);
-                Assert.AreNotEqual("Pente", temp);
-
-                GameManager.PlacePiece(half, y * 2 + 1, out temp); // Black
-                Assert.AreNotEqual("Draw", temp);
-                Assert.AreNotEqual("Pente", temp);
-            }
+            GameManager.PlacePiece(1, half, out temp); // White
+            Assert.AreNotEqual("Draw", temp);
+            Assert.AreNotEqual("Pente", temp);
+            GameManager.PlacePiece(0, half, out temp); // Black
+            Assert.AreNotEqual("Draw", temp);
+            Assert.AreNotEqual("Pente", temp);
+            GameManager.PlacePiece(3, half, out temp); // White
+            Assert.AreNotEqual("Draw", temp);
+            Assert.AreNotEqual("Pente", temp);
+            GameManager.PlacePiece(2, half, out temp); // Black
+            Assert.AreNotEqual("Draw", temp);
+            Assert.AreNotEqual("Pente", temp);
+            GameManager.PlacePiece(5, half, out temp); // White
+            Assert.AreNotEqual("Draw", temp);
+            Assert.AreNotEqual("Pente", temp);
+            GameManager.PlacePiece(6, half, out temp); // Black
+            Assert.AreNotEqual("Draw", temp);
+            Assert.AreNotEqual("Pente", temp);
+            GameManager.PlacePiece(7, half, out temp); // White
+            Assert.AreNotEqual("Draw", temp);
+            Assert.AreNotEqual("Pente", temp);
 
 
-            for (int y = 0; y < 2; y++) {
-                GameManager.PlacePiece(half, width - 1 - (y * 2), out temp); // White
-                Assert.AreNotEqual("Draw", temp);
-                Assert.AreNotEqual("Pente", temp);
-
-                GameManager.PlacePiece(half, width - 1 - (y * 2 + 1), out temp); // Black
-                if (y == 1) {
+            for (int y = 0; y < 9; y++) {
+                GameManager.PlacePiece(width - 1, y, out temp); // White
+                if(y == 8) {
                     Assert.AreEqual("Draw", temp);
                 } else {
                     Assert.AreNotEqual("Draw", temp);
                     Assert.AreNotEqual("Pente", temp);
                 }
+                
             }
+
+
+            //start = 5;
+            //for (int y = 0; y < 4; y++) {
+            //    GameManager.PlacePiece(i * 2, start + y, out temp); // White
+            //    Assert.AreNotEqual("Draw", temp);
+            //    Assert.AreNotEqual("Pente", temp);
+
+            //    GameManager.PlacePiece(i * 2 + 1, start + y, out temp); // Black
+            //    Assert.AreNotEqual("Draw", temp);
+            //    Assert.AreNotEqual("Pente", temp);
+            //}
+
+            //GameManager.PlacePiece(i * 2 + 1, 4, out temp); // White 
+            //Assert.AreNotEqual("Draw", temp);
+            //Assert.AreNotEqual("Pente", temp);
+            //GameManager.PlacePiece(i * 2, 4, out temp); // Black
+            //Assert.AreNotEqual("Draw", temp);
+            //Assert.AreNotEqual("Pente", temp);
+            //}
+
+
+
+
         }
 
         [TestMethod]
