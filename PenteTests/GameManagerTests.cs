@@ -16,7 +16,7 @@ namespace PenteTests {
             Assert.AreNotEqual(null, GameManager.board);
             Assert.AreNotEqual(null, GameManager.player1);
             Assert.AreNotEqual(null, GameManager.player2);
-            Assert.AreEqual(true, GameManager.player1Turn);
+            Assert.AreEqual(false, GameManager.player1Turn);
 
             Assert.AreEqual(0, GameManager.player1.captures);
             Assert.AreEqual(0, GameManager.player2.captures);
@@ -28,6 +28,8 @@ namespace PenteTests {
             Assert.AreEqual(19, GameManager.board.Height);
             Assert.AreEqual(19, GameManager.board.Width);
             Assert.AreNotEqual(null, GameManager.board.tiles);
+            int half = GameManager.board.Width / 2;
+            Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half));
         }
 
         [TestMethod]
@@ -98,7 +100,7 @@ namespace PenteTests {
             string temp;
             int half = GameManager.board.Width / 2;
 
-            GameManager.PlacePiece(half, half, out temp);
+            
             Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half));
 
             GameManager.PlacePiece(half-1, half-1, out temp);
@@ -152,7 +154,7 @@ namespace PenteTests {
             int half = GameManager.board.Width / 2;
 
             // Player First turn
-            GameManager.PlacePiece(half, half, out temp);
+            
             GameManager.MakeComputerMove(out temp);
 
             int blackAmo = 0;
@@ -194,7 +196,7 @@ namespace PenteTests {
             // Multiple Captures Vertical Up, Horizontal Right, Diagonal Down Right
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half, half - 1, out temp);
@@ -267,7 +269,7 @@ namespace PenteTests {
             // Horizontal Left (-, )
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half + 1, half, out temp);
@@ -294,7 +296,7 @@ namespace PenteTests {
             // Horizontal Right (+, )
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half - 1, half, out temp);
@@ -332,7 +334,7 @@ namespace PenteTests {
             // Vertical Up ( , +)
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half, half - 1, out temp);
@@ -360,7 +362,7 @@ namespace PenteTests {
             // Vertical Down ( , -)
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half, half + 1, out temp);
@@ -399,7 +401,7 @@ namespace PenteTests {
             // Diagonal Down, Left (-, -)
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half + 1, half + 1, out temp);
@@ -426,7 +428,7 @@ namespace PenteTests {
             // Diagonal Down, Right (+, -)
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half - 1, half + 1, out temp);
@@ -453,7 +455,7 @@ namespace PenteTests {
             // Diagonal Up, Left (-, +)
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half + 1, half - 1, out temp);
@@ -480,7 +482,7 @@ namespace PenteTests {
             // Diagonal Up, Right (+, +)
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half - 1, half - 1, out temp);
@@ -518,7 +520,7 @@ namespace PenteTests {
             // Vertical
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half, half + 1, out temp);
@@ -550,7 +552,7 @@ namespace PenteTests {
             // Horizontal
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half + 1, half, out temp);
@@ -582,7 +584,7 @@ namespace PenteTests {
             // Diagonal
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half - 1, half + 1, out temp);
@@ -624,7 +626,7 @@ namespace PenteTests {
             // Vertical
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half, half - 1, out temp);
@@ -652,7 +654,7 @@ namespace PenteTests {
             // Horizontal
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half - 1, half, out temp);
@@ -680,7 +682,7 @@ namespace PenteTests {
             // Diagnol
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half)); // Middle
 
                 GameManager.PlacePiece(half - 1, half - 1, out temp);
@@ -736,7 +738,7 @@ namespace PenteTests {
             // Good Placement
             hasException = false;
             try {
-                GameManager.PlacePiece(half, half, out temp);
+                
             } catch (IndexOutOfRangeException e) {
                 hasException = true;
             }
@@ -745,7 +747,7 @@ namespace PenteTests {
             // Onto itself
             hasException = false;
             try {
-                GameManager.PlacePiece(half, half, out temp);
+                
             } catch (IndexOutOfRangeException e) {
                 hasException = true;
             }
@@ -768,8 +770,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
 
-                GameManager.PlacePiece(half, half, out temp);
-                Assert.AreNotEqual("Pente", temp);
+                
+                //Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half, half + 1, out temp);
                 Assert.AreNotEqual("Pente", temp);
@@ -803,8 +805,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
 
-                GameManager.PlacePiece(half, half, out temp);
-                Assert.AreNotEqual("Pente", temp);
+                
+                //Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half, out temp);
                 Assert.AreNotEqual("Pente", temp);
@@ -838,8 +840,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
 
-                GameManager.PlacePiece(half, half, out temp);
-                Assert.AreNotEqual("Pente", temp);
+                
+                //Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half + 1, out temp);
                 Assert.AreNotEqual("Pente", temp);
@@ -883,8 +885,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
 
-                GameManager.PlacePiece(half, half, out temp);
-                Assert.AreNotEqual("Pente", temp);
+                
+                //Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half, half + 1, out temp);
                 Assert.AreNotEqual("Pente", temp);
@@ -915,8 +917,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
 
-                GameManager.PlacePiece(half, half, out temp);
-                Assert.AreNotEqual("Pente", temp);
+                
+                //Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half + 1, half, out temp);
                 Assert.AreNotEqual("Pente", temp);
@@ -947,8 +949,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
 
-                GameManager.PlacePiece(half, half, out temp);
-                Assert.AreNotEqual("Pente", temp);
+                
+                //Assert.AreNotEqual("Pente", temp);
 
                 GameManager.PlacePiece(half - 1, half, out temp);
                 Assert.AreNotEqual("Pente", temp);
@@ -987,8 +989,8 @@ namespace PenteTests {
 
             GameManager.player1.captures = 4;
 
-            GameManager.PlacePiece(half, half, out temp);
-            Assert.AreNotEqual("Capture", temp);
+            
+            //Assert.AreNotEqual("Capture", temp);
 
             GameManager.PlacePiece(half + 1, half, out temp);
             Assert.AreNotEqual("Capture", temp);
@@ -1014,8 +1016,8 @@ namespace PenteTests {
 
             GameManager.player2.captures = 4;
 
-            GameManager.PlacePiece(half, half, out temp);
-            Assert.AreNotEqual("Capture", temp);
+            
+            //Assert.AreNotEqual("Capture", temp);
 
             GameManager.PlacePiece(half + 1, half , out temp);
             Assert.AreNotEqual("Capture", temp);
@@ -1042,8 +1044,8 @@ namespace PenteTests {
             string temp;
             int half = GameManager.board.Width / 2;
 
-            GameManager.PlacePiece(half, half, out temp);
-            Assert.AreNotEqual("Pente", temp);
+            
+            //Assert.AreNotEqual("Pente", temp);
  
             for(int i = 0; i < 9; i++) {
                 GameManager.PlacePiece(0, i, out temp);
@@ -1087,8 +1089,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
                 // Before
-                GameManager.PlacePiece(half, half, out temp); // White
-                Assert.AreEqual("", temp);
+                 // White
+                //Assert.AreEqual("", temp);
 
                 GameManager.PlacePiece(half + 1, half, out temp); // Black
                 Assert.AreEqual("", temp);
@@ -1120,8 +1122,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
                 // Before
-                GameManager.PlacePiece(half, half, out temp); // White
-                Assert.AreEqual("", temp);
+                 // White
+                //Assert.AreEqual("", temp);
 
                 GameManager.PlacePiece(half, half - 1, out temp); // Black
                 Assert.AreEqual("", temp);
@@ -1150,8 +1152,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
                 // Before
-                GameManager.PlacePiece(half, half, out temp); // White
-                Assert.AreEqual("", temp);
+                 // White
+                //Assert.AreEqual("", temp);
 
                 GameManager.PlacePiece(half, half + 1, out temp); // Black
                 Assert.AreEqual("", temp);
@@ -1180,8 +1182,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
                 // Before
-                GameManager.PlacePiece(half, half, out temp); // White
-                Assert.AreEqual("", temp);
+                 // White
+                //Assert.AreEqual("", temp);
 
                 GameManager.PlacePiece(half, half - 1, out temp); // Black
                 Assert.AreEqual("", temp);
@@ -1210,8 +1212,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
                 // Before
-                GameManager.PlacePiece(half, half, out temp); // White
-                Assert.AreEqual("", temp);
+                 // White
+                //Assert.AreEqual("", temp);
 
                 GameManager.PlacePiece(half + 1, half, out temp); // Black
                 Assert.AreEqual("", temp);
@@ -1240,8 +1242,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
                 // Before
-                GameManager.PlacePiece(half, half, out temp); // White
-                Assert.AreEqual("", temp);
+                 // White
+                //Assert.AreEqual("", temp);
 
                 GameManager.PlacePiece(half, half + 1, out temp); // Black
                 Assert.AreEqual("", temp);
@@ -1270,8 +1272,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
                 // Before
-                GameManager.PlacePiece(half, half, out temp); // White
-                Assert.AreEqual("", temp);
+                 // White
+                //Assert.AreEqual("", temp);
 
                 GameManager.PlacePiece(half, half + 1, out temp); // Black
                 Assert.AreEqual("", temp);
@@ -1300,8 +1302,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
                 // Before
-                GameManager.PlacePiece(half, half, out temp); // White
-                Assert.AreEqual("", temp);
+                 // White
+                //Assert.AreEqual("", temp);
 
                 GameManager.PlacePiece(half -1, half, out temp); // Black
                 Assert.AreEqual("", temp);
@@ -1340,8 +1342,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
                 // Before
-                GameManager.PlacePiece(half, half, out temp); // White
-                Assert.AreEqual("", temp);
+                 // White
+                //Assert.AreEqual("", temp);
 
                 GameManager.PlacePiece(half + 1, half, out temp); // Black
                 Assert.AreEqual("", temp);
@@ -1380,8 +1382,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
                 // Before
-                GameManager.PlacePiece(half, half, out temp); // White
-                Assert.AreEqual("", temp);
+                 // White
+                //Assert.AreEqual("", temp);
 
                 GameManager.PlacePiece(half, half + 1, out temp); // Black
                 Assert.AreEqual("", temp);
@@ -1418,8 +1420,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
                 // Before
-                GameManager.PlacePiece(half, half, out temp); // White
-                Assert.AreEqual("", temp);
+                 // White
+                //Assert.AreEqual("", temp);
 
                 GameManager.PlacePiece(half, half - 1, out temp); // Black
                 Assert.AreEqual("", temp);
@@ -1456,8 +1458,8 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
                 // Before
-                GameManager.PlacePiece(half, half, out temp); // White
-                Assert.AreEqual("", temp);
+                 // White
+                //Assert.AreEqual("", temp);
 
                 GameManager.PlacePiece(half, half + 1, out temp); // Black
                 Assert.AreEqual("", temp);
@@ -1497,45 +1499,12 @@ namespace PenteTests {
             Assert.AreEqual(TileState.BLACK, GameManager.player1.color);
             Assert.AreEqual(TileState.WHITE, GameManager.player2.color);
 
-            string temp;
             int half = GameManager.board.Width / 2;
 
-            // Not Centered
-            bool hasException = false;
-            try {
-                GameManager.Initialize(19);
-                GameManager.PlacePiece(half - 1, half - 1, out temp);
-            } catch (IndexOutOfRangeException e) {
-                hasException = true;
-            }
-            Assert.AreEqual(false, hasException);
-            Assert.AreEqual(TileState.EMPTY, GameManager.board.GetState(half - 1, half - 1));
-            Assert.AreEqual(true, GameManager.player1Turn);
-
-            // Not Centered
-            hasException = false;
-            try {
-                GameManager.Initialize(19);
-                GameManager.PlacePiece(half + 1, half + 1, out temp);
-            } catch (IndexOutOfRangeException e) {
-                hasException = true;
-            }
-            Assert.AreEqual(false, hasException);
-            Assert.AreEqual(TileState.EMPTY, GameManager.board.GetState(half + 1, half + 1));
-            Assert.AreEqual(true, GameManager.player1Turn);
-
-
-            // Not Centered
-            hasException = false;
-            try {
-                GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
-            } catch (IndexOutOfRangeException e) {
-                hasException = true;
-            }
-            Assert.AreEqual(false, hasException);
+            GameManager.Initialize(19);
             Assert.AreEqual(TileState.BLACK, GameManager.board.GetState(half, half));
             Assert.AreEqual(false, GameManager.player1Turn);
+            
         }
 
         [TestMethod]
@@ -1554,7 +1523,7 @@ namespace PenteTests {
                 bool hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half + 2, half, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1568,7 +1537,7 @@ namespace PenteTests {
                 hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half - 2, half, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1582,7 +1551,7 @@ namespace PenteTests {
                 hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half, half + 2, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1596,7 +1565,7 @@ namespace PenteTests {
                 hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half, half - 2, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1610,7 +1579,7 @@ namespace PenteTests {
                 hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half + 2, half - 2, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1624,7 +1593,7 @@ namespace PenteTests {
                 hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half - 2, half - 2, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1638,7 +1607,7 @@ namespace PenteTests {
                 hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half - 2, half + 2, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1652,7 +1621,7 @@ namespace PenteTests {
                 hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half + 2, half + 2, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1669,7 +1638,7 @@ namespace PenteTests {
                 bool hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half + 3, half, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1683,7 +1652,7 @@ namespace PenteTests {
                 hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half - 3, half, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1697,7 +1666,7 @@ namespace PenteTests {
                 hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half, half + 3, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1711,7 +1680,7 @@ namespace PenteTests {
                 hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half, half - 3, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1725,7 +1694,7 @@ namespace PenteTests {
                 hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half + 3, half - 3, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1739,7 +1708,7 @@ namespace PenteTests {
                 hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half - 3, half - 3, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1753,7 +1722,7 @@ namespace PenteTests {
                 hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half - 3, half + 3, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1767,7 +1736,7 @@ namespace PenteTests {
                 hasException = false;
                 try {
                     GameManager.Initialize(19);
-                    GameManager.PlacePiece(half, half, out temp);
+                    
                     GameManager.PlacePiece(half + 1, half + 1, out temp);
                     GameManager.PlacePiece(half + 3, half + 3, out temp);
                 } catch (IndexOutOfRangeException e) {
@@ -1786,7 +1755,7 @@ namespace PenteTests {
             string temp;
             int half = GameManager.board.Width / 2;
 
-            GameManager.PlacePiece(half, half, out temp);
+            
             GameManager.PlacePiece(half + 1, half, out temp);
             GameManager.PlacePiece(half + 4, half, out temp);
 
@@ -1825,7 +1794,7 @@ namespace PenteTests {
             // Basic Board
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 GameManager.PlacePiece(half - 1, half - 1, out temp);
                 GameManager.PlacePiece(half - 4, half - 3, out temp);
                 Save(out player1, out player2, out player1Turn, out tiles, out boardLocked);
@@ -1840,7 +1809,7 @@ namespace PenteTests {
             // Capture Board
             {
                 GameManager.Initialize(19);
-                GameManager.PlacePiece(half, half, out temp);
+                
                 GameManager.PlacePiece(half - 1, half, out temp);
 
                 GameManager.PlacePiece(half - 4, half, out temp);
@@ -1861,7 +1830,7 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
                 GameManager.SetPlayerNames("Josh", "Computer");
-                GameManager.PlacePiece(half, half, out temp);
+                
                 GameManager.MakeComputerMove(out temp);
                 //GameManager.PlacePiece(half - 1, half, out temp);
 
@@ -1884,7 +1853,7 @@ namespace PenteTests {
             {
                 GameManager.Initialize(19);
                 GameManager.SetPlayerNames("Josh", "Computer");
-                GameManager.PlacePiece(half, half, out temp);
+                
                 GameManager.PlacePiece(half - 1, half - 1, out temp);
 
                 GameManager.PlacePiece(half + 4, half, out temp);
