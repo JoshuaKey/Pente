@@ -197,11 +197,6 @@ namespace PenteTests {
         }
 
         [TestMethod]
-        public void Board_Clear() {
-            // ????
-        }
-
-        [TestMethod]
         public void Board_BlackPlacement() {
             Board b = new Board(19, 19);
 
