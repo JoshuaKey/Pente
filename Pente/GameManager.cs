@@ -120,31 +120,31 @@ namespace Pente
 
             if (board.IsValid(x, y))
             {
-                int captures = HasCaptures(x, y);
-                GetCurrentPlayer().captures += captures;
-                if (GetCurrentPlayer().captures >= 5)
-                {
-                    announcement = "Capture";
-                    BoardLocked = true;
-                }
-                else if (HasPente(x, y))
-                {
-                    announcement = "Pente";
-                    BoardLocked = true;
-                }
-                else if (HasTessera(x, y))
-                {
-                    announcement = "Tessera";
-                }
-                else if (HasTria(x, y))
-                {
-                    announcement = "Tria";
-                }
-                else if (captures >= 1)
-                {
-                    announcement = "Capture" + captures;
-                }
-            }
+				int captures = HasCaptures(x, y);
+				GetCurrentPlayer().captures += captures;
+				if (GetCurrentPlayer().captures >= 5)
+				{
+					announcement = "Capture";
+					BoardLocked = true;
+				}
+				else if (HasPente(x, y))
+				{
+					announcement = "Pente";
+					BoardLocked = true;
+				}
+				else if (HasTessera(x, y))
+				{
+					announcement = "Tessera";
+				}
+				else if (HasTria(x, y))
+				{
+					announcement = "Tria";
+				}
+				else if (captures >= 1)
+				{
+					announcement = "Capture" + captures;
+				}
+			}
 
             return announcement;
         }
@@ -182,17 +182,13 @@ namespace Pente
 						int numInRow = 0;
 						for (int j = i; j <= 3 + i; ++j)
 						{
-							try
-							{
-								TileState state = board.GetState(x + dx * j, y + dy * j);
-								if (state == thisState) ++numInRow;
-								if (state == otherState) --numInRow;
-							}
-							catch (IndexOutOfRangeException) { break; }
+							if (!board.IsInRange(x + dx * j, y + dy * j)) break;
+							TileState state = board.GetState(x + dx * j, y + dy * j);
+							if (state == thisState) ++numInRow;
+							if (state == otherState) --numInRow;
 						}
-						bool almostBracket = false;
-						try { if (board.GetState(x + dx * (i - 1), y + dy * (i - 1)) == otherState) almostBracket = true; } catch (IndexOutOfRangeException) { almostBracket = true; }
-						try { if (almostBracket && board.GetState(x + dx * (i + 4), y + dy * (i + 4)) == otherState) return false; } catch (IndexOutOfRangeException) { if (almostBracket) return false; }
+						if (numInRow == 3 && board.IsInRange(x + dx * (i - 1), y + dy * (i - 1)) && board.GetState(x + dx * (i - 1), y + dy * (i - 1)) == otherState
+							&& numInRow == 3 && board.IsInRange(x + dx * (i + 4), y + dy * (i + 4)) && board.GetState(x + dx * (i + 4), y + dy * (i + 4)) == otherState) return false;
 						if (numInRow == 3) return true;
 					}
 				}
@@ -213,15 +209,11 @@ namespace Pente
 						int numInRow = 0;
 						for (int j = i; j <= 3 + i; ++j)
 						{
-							try
-							{
-								if (board.GetState(x + dx * j, y + dy * j) == thisState) ++numInRow;
-							}
-							catch (IndexOutOfRangeException) { break; }
+							if (!board.IsInRange(x + dx * j, y + dy * j)) break;
+							if (board.GetState(x + dx * j, y + dy * j) == thisState) ++numInRow;
 						}
-						bool almostBracket = false;
-						try	{ if (board.GetState(x + dx * (i - 1), y + dy * (i - 1)) == otherState) almostBracket = true;} catch (IndexOutOfRangeException) { almostBracket = true; }
-						try { if (almostBracket && board.GetState(x + dx * (i + 4), y + dy * (i + 4)) == otherState) return false; } catch (IndexOutOfRangeException) { if (almostBracket) return false; }
+						if (numInRow == 4 && board.IsInRange(x + dx * (i - 1), y + dy * (i - 1)) && board.GetState(x + dx * (i - 1), y + dy * (i - 1)) == otherState
+							&& numInRow == 4 && board.IsInRange(x + dx * (i + 4), y + dy * (i + 4)) && board.GetState(x + dx * (i + 4), y + dy * (i + 4)) == otherState) return false;
 						if (numInRow == 4) return true;
 					}
 				}
@@ -240,12 +232,9 @@ namespace Pente
 						int numInRow = 0;
 						for (int j = i; j <= 4 + i; ++j)
 						{
-							try
-							{
-								if (board.GetState(x, y) == board.GetState(x + dx * j, y + dy * j)) ++numInRow;
-							}
-							catch (IndexOutOfRangeException) { break; }
-						} 
+							if (!board.IsInRange(x + dx * j, y + dy * j)) break;
+							if (board.GetState(x, y) == board.GetState(x + dx * j, y + dy * j)) ++numInRow;
+						}
 						if (numInRow == 5) return true;
 					}
 				}
@@ -261,19 +250,15 @@ namespace Pente
 			{
 				for (int dy = -1; dy <= 1; ++dy)
 				{
-					if (dx == 0 && dy == 0) continue;
-					try
+					if ((dx == 0 && dy == 0) || !board.IsInRange(x + dx * 3, y + dy * 3)) continue;
+					if (board.GetState(x + dx, y + dy) == otherState &&
+						board.GetState(x + dx * 2, y + dy * 2) == otherState &&
+						board.GetState(x + dx * 3, y + dy * 3) == thisState)
 					{
-						if (board.GetState(x + dx, y + dy) == otherState &&
-							board.GetState(x + dx * 2, y + dy * 2) == otherState &&
-							board.GetState(x + dx * 3, y + dy * 3) == thisState)
-						{
-							captures++;
-							board.Remove(x + dx, y + dy);
-							board.Remove(x + dx * 2, y + dy * 2);
-						}
+						captures++;
+						board.Remove(x + dx, y + dy);
+						board.Remove(x + dx * 2, y + dy * 2);
 					}
-					catch (IndexOutOfRangeException) { break; }
 				}
 			}
 			return captures;
