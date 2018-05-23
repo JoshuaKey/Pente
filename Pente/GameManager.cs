@@ -36,16 +36,11 @@ namespace Pente
             player1Turn = false;
             BoardLocked = false;
         }
-        public static void SetPlayerNames(string p1Name, string p2Name)
+        public static void SetPlayerNames(string p1Name, string p2Name, bool p2isComputer = false)
         {
-			Player p1 = player1;
-			Player p2 = player2;
             player1.name = string.IsNullOrEmpty(p1Name) ? "Player 1" : p1Name;
             player2.name = string.IsNullOrEmpty(p2Name) ? "Player 2" : p2Name;
-            if (p2Name == "Computer")
-            {
-                player2.isComputer = true;
-            }
+			player2.isComputer = p2isComputer;
 			player1.color = TileState.BLACK;
 			player2.color = TileState.WHITE;
         }
