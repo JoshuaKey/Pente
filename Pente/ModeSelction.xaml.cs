@@ -34,22 +34,12 @@ namespace Pente
             SetPlayerNames();
             Page p = new GameWindow();
             NavigationService.Navigate(p);
-            //GameWindow gw = new GameWindow();
-            //gw.Left = Left;
-            //gw.Top = 0;
-            //gw.Show();
-            //Close();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             Page p = new MenuController();
             NavigationService.Navigate(p);
-            //MenuController mc = new MenuController();
-            //mc.Left = Left;
-            //mc.Top = Top;
-            //mc.Show();
-            //Close();
         }
 
         private void Computer_Clicked(object sender, RoutedEventArgs e)

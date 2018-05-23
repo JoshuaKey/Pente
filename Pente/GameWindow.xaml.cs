@@ -193,11 +193,6 @@ namespace Pente
         {
             Page p = new MenuController();
             NavigationService.Navigate(p);
-            //MenuController mc = new MenuController();
-            //mc.Left = Left;
-            //mc.Top = 20;
-            //mc.Show();
-            //Close();
         }
 		private void Save_Click(object sender, RoutedEventArgs e)
 		{
@@ -212,8 +207,9 @@ namespace Pente
 			{
                 timer.Stop();
                 TimerTurnSwitch tts = new TimerTurnSwitch(GameManager.GetCurrentPlayer().name + ", you ran out of time and the turn switched.");
-                //tts.Top = Top + Height / 2 - tts.Height / 2;
-                //tts.Left = Left + Width / 2 - tts.Width / 2;
+                tts.Title = "Turn Switch";
+                tts.Top = 100;
+                tts.Left = 250;
                 tts.ShowDialog();
                 currentTime = 0.0;
                 GameManager.SwitchPlayerTurn();

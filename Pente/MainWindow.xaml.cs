@@ -28,11 +28,6 @@ namespace Pente {
         {
             Page p = new ModeSelction();
             NavigationService.Navigate(p);
-            //ModeSelction ms = new ModeSelction();
-            //ms.Left = Left;
-            //ms.Top = Top;
-            //ms.Show();
-            //Close();
         }
 
         private void Rules_Click(object sender, RoutedEventArgs e)
@@ -52,11 +47,6 @@ namespace Pente {
             {
                 Page p = new GameWindow();
                 NavigationService.Navigate(p);
-                //GameWindow gw = new GameWindow();
-                //gw.Show();
-                //gw.Top = 0;
-                //gw.Left = Left;
-                //Close();
             }
         }
     }

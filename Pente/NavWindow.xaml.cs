@@ -23,6 +23,8 @@ namespace Pente
         public NavWindow()
         {
             InitializeComponent();
+            Top = 25;
+            Left = 100;
         }
     }
 }
