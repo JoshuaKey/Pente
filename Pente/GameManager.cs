@@ -84,7 +84,7 @@ namespace Pente
                 {
                     TileState state = player1Turn ? player1.color : player2.color;
                     board.Place(state, x, y);
-                    announcement = GetAnnouncement(x, y);
+                    announcement = GetAnnouncementFromPlacement(x, y);
                     if (announcement == "Pente" || announcement == "Capture")
                     {
                         success = false;
@@ -123,7 +123,7 @@ namespace Pente
             return valid;
         }
 
-        private static string GetAnnouncement(int x, int y)
+        private static string GetAnnouncementFromPlacement(int x, int y)
         {
             string announcement = "";
 
