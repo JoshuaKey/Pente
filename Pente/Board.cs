@@ -12,6 +12,7 @@ namespace Pente
         public Piece[,] tiles;
         public int Width { get { return tiles.GetLength(0); } }
         public int Height { get { return tiles.GetLength(1); } }
+		//private int Count { get; set; } = 0;
 
         public Board(int columns, int rows)
         {
