@@ -39,6 +39,7 @@ namespace Pente
 			timer.Tick += Timer_Tick;
 			timer.Interval = new TimeSpan(0, 0, 1);
 			timer.Start();
+            MakeComputerMove();
 		}
 		private void Window_Close(object sender, EventArgs e)
 		{
@@ -72,14 +73,32 @@ namespace Pente
         {
             int column = Grid.GetColumn(sender as Image);
             int row = Grid.GetRow(sender as Image);
-            string announcement;
+            string announcement = "";
             string baseText = GameManager.GetCurrentPlayer().name;
+            bool placed = PlacePiece(out announcement, column, row);
+            string text = GetAnnouncmentText(announcement, baseText);
+
+            UpdateUI(text, placed);
+            ToggleTimer(placed);
+            if (placed && GameManager.GetCurrentPlayer().isComputer)
+            {
+                MakeComputerMove();
+            }
+        }
+
+        private bool PlacePiece(out string announcement, int x, int y)
+        {
             bool placed = false;
             announcement = "";
-            if (!locked) placed = GameManager.PlacePiece(column, row, out announcement);
+            if (!locked) placed = GameManager.PlacePiece(x, y, out announcement);
             if (GameManager.GetCurrentPlayer().isComputer) locked = true;
             else locked = false;
-            string text = GetAnnouncmentText(announcement, baseText);
+
+            return placed;
+        }
+
+        private void ToggleTimer(bool placed)
+        {
             if (GameManager.BoardLocked)
             {
                 timer.Stop();
@@ -89,26 +108,31 @@ namespace Pente
                 timer.Start();
                 currentTime = 0.0f;
             }
+        }
+
+        private void UpdateUI(string announcement, bool placed)
+        {
             lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
-            if (placed || text != "") tbl_announcement.Text = text;
             lbl_captures.Content = GameManager.GetCurrentPlayer().captures;
-            if (placed && GameManager.GetCurrentPlayer().isComputer)
+            if (placed || announcement != "") tbl_announcement.Text = announcement;
+        }
+
+        private void MakeComputerMove()
+        {
+            new Thread(() =>
             {
-                new Thread(() =>
+                Thread.CurrentThread.IsBackground = true;
+                Thread.Sleep(800);
+                string announcement;
+                string baseText = GameManager.GetCurrentPlayer().name;
+                GameManager.MakeComputerMove(out announcement);
+                string text = GetAnnouncmentText(announcement, baseText);
+                Dispatcher.Invoke(() =>
                 {
-                    Thread.CurrentThread.IsBackground = true;
-                    Thread.Sleep(800);
-                    baseText = GameManager.GetCurrentPlayer().name;
-                    GameManager.MakeComputerMove(out announcement);
-                    text = GetAnnouncmentText(announcement, baseText);
-                    Dispatcher.Invoke(() =>
-                    {
-                        lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
-                        tbl_announcement.Text = text;
-                    });
-                    locked = false;
-                }).Start();
-            }
+                    UpdateUI(text, true);
+                });
+                locked = false;
+            }).Start();
         }
 
         private string GetAnnouncmentText(string announcement, string baseText)
