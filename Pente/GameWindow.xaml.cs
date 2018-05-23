@@ -32,10 +32,9 @@ namespace Pente
 			grd_tiles.Columns = board.Width;
 			grd_tiles.Rows = board.Height;
 			AddButtons(board.Width, board.Height);
-			tbl_announcement.Text = "";
 			lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
             locked = false;
-
+            tbl_announcement.Text = "";
 
 			timer.Tick += Timer_Tick;
 			timer.Interval = new TimeSpan(0, 0, 1);
@@ -81,14 +80,23 @@ namespace Pente
             if (GameManager.GetCurrentPlayer().isComputer) locked = true;
             else locked = false;
             string text = GetAnnouncmentText(announcement, baseText);
+            if (GameManager.BoardLocked)
+            {
+                timer.Stop();
+            }
+            else
+            {
+                timer.Start();
+            }
             lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
             tbl_announcement.Text = text;
+            lbl_captures.Content = GameManager.GetCurrentPlayer().captures;
             if (placed && GameManager.GetCurrentPlayer().isComputer)
             {
                 new Thread(() =>
                 {
                     Thread.CurrentThread.IsBackground = true;
-                    Thread.Sleep(2000);
+                    Thread.Sleep(800);
                     baseText = GameManager.GetCurrentPlayer().name;
                     GameManager.MakeComputerMove(out announcement);
                     text = GetAnnouncmentText(announcement, baseText);
@@ -118,6 +126,9 @@ namespace Pente
                     break;
                 case "Tria":
                     text += " made a tria!";
+                    break;
+                case "Second":
+                    text += ", it must be at least 3 away";
                     break;
                 default:
                     int cap;
@@ -174,7 +185,8 @@ namespace Pente
 				GameManager.player1Turn = !GameManager.player1Turn;
 				tbl_announcement.Text = "";
 				lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
-			}
+                // TODO: Show dialog and resume timer when clicked
+            }
 			lbl_timer.Content = (20.0 - currentTime / 1000).ToString();
 		}
     }
