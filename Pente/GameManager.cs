@@ -67,7 +67,8 @@ namespace Pente
         {
             bool success = true;
             announcement = "";
-            if ((turnCount == 3 && !IsValidSecondMove(x, y)) || (GetCurrentPlayer().turnCount == 0 && player1Turn))
+            bool p1secondMove = GetCurrentPlayer().turnCount == 0 && player1Turn;
+            if ((p1secondMove && !IsValidSecondMove(x, y)))
             {
                 announcement = "Second";
                 return false;
