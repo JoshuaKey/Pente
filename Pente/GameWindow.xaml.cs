@@ -39,7 +39,10 @@ namespace Pente
 			timer.Tick += Timer_Tick;
 			timer.Interval = new TimeSpan(0, 0, 1);
 			timer.Start();
-            MakeComputerMove();
+            if (GameManager.GetCurrentPlayer().isComputer)
+            {
+                MakeComputerMove();
+            }
 		}
 		private void Window_Close(object sender, EventArgs e)
 		{
@@ -102,8 +105,9 @@ namespace Pente
             if (GameManager.BoardLocked)
             {
                 timer.Stop();
+                currentTime = 0.0f;
             }
-            else if (placed)
+            else
             {
                 timer.Start();
                 currentTime = 0.0f;
@@ -191,6 +195,7 @@ namespace Pente
 
         private void Menu_Click(object sender, RoutedEventArgs e)
         {
+            timer.Stop();
             Page p = new MenuController();
             NavigationService.Navigate(p);
         }
@@ -216,6 +221,12 @@ namespace Pente
                 tbl_announcement.Text = "";
                 lbl_playerTurn.Content = GameManager.GetCurrentPlayer().name + "'s";
                 timer.Start();
+
+                if (GameManager.GetCurrentPlayer().isComputer)
+                {
+                    locked = true;
+                    MakeComputerMove();
+                }
             }
 			lbl_timer.Content = (20.0 - currentTime / 1000).ToString();
 		}
